@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:tr="http://myfaces.apache.org/trinidad"
+                xmlns:trh="http://myfaces.apache.org/trinidad/html"
+                xmlns:c="http://java.sun.com/jstl/core"
+                xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+                xmlns:sf="http://www.ebi.ac.uk/faces/site">
+
+    <h2>Local installation of the validator</h2>
+
+    <section class="grid_18 alpha">
+        <a name="download"/>
+
+        <h3>Download the source code</h3>
+
+        <p>The source code is freely available in <a href="https://github.com/MICommunity" target="_blank">google code</a>.
+
+            <br/>
+            You can checkout it from https://github.com/MICommunity/PSI-MI-Validator</p>
+
+        <a name="requirements"/>
+
+        <h3>Technologies and requirements</h3>
+
+        <p>
+            The validator framework was written in Java and uses Maven 2 as build system.
+            The configuration of the framework is mostly done using XML files.
+            To run the validator in command line the following requirements apply:
+        </p>
+        <ul>
+            <li><a href="http://www.java.com/en/download/index.jsp" target="_blank">Java 5 and higher</a></li>
+            <li><a href="http://maven.apache.org/download.html" target="_blank">Maven 2</a> (if you wish to take advantage of existing infrastructure)</li>
+        </ul>
+
+        <a name="scripts"/>
+
+        <h3>Usage of pre-written scripts</h3>
+
+        <p>Four pre-written scripts exist and need maven to run : </p>
+
+        <ul>
+            <li>
+                <strong>validate-xml.sh</strong> : validation scope 'XML Syntax Only'
+            </li>
+            <li>
+                <strong>validate-cv.sh</strong> : validation scope 'Controlled Vocabulary Usage'
+            </li>
+            <li>
+                <strong>validate-mimix.sh</strong> : validation scope 'MIMIx'
+            </li>
+            <li>
+                <strong>validate-imex.sh</strong> : validation scope 'IMEx'
+            </li>
+        </ul>
+
+        <p>These scripts need a file name or folder name as input. They will then validate the file if the input was a file name
+            or validate recursively all the files with an extension 'xml' that the folder given in input contains. Each validator report is
+            written in a file in the same directory of the validated file with a name report-filename.txt. For each script, the validator will
+            only report the validator messages with a level superior or equal to WARN (WARN, ERROR and FATAL)</p>
+
+        <h4>Example</h4>
+
+        <p><strong>./validate-mimix.sh directory</strong></p>
+
+        <p>It will recursively validate all the files with the extension '.xml' in the folder 'directory' and write the validator report of each file
+        in the appropriate folder. </p>
+
+        <p><strong>./validate-mimix.sh file</strong></p>
+
+        <p>It will validate all the file 'file' and write the validator report in the appropriate folder.</p>
+
+        <a name="commandline"/>
+
+        <h3>Maven command line</h3>
+
+        <p>You can also directly run the command line :</p>
+
+        <p><strong>mvn install -Pvalidate -Dfile=file -Dscope=scope -Dlevel=level -Dmaven.test.skip</strong></p>
+
+        <ul>
+            <li><strong>-Dfile</strong>: the option giving the file name or directory name</li>
+            <li><strong>-Dscope</strong>: the option giving the validation scope. It can be 'xml', 'cv', 'mimix' or 'imex'</li>
+            <li><strong>-Dlevel</strong>: the option giving the lowest message level for what the validator will keep the message in the repor.
+                It can be 'DEBUG', 'INFO', 'WARN', 'ERROR' or 'FATAL'</li>
+        </ul>
+
+        <h4>Example</h4>
+
+        <p><strong>mvn install -Pvalidate -Dfile=file -Dscope=mimix -Dlevel=INFO -Dmaven.test.skip</strong>
+
+            It will validate the file 'file' with the MIMIx rules and will only write in the report 'report-file.txt' the list of messages with a level
+            INFO, WARN, ERROR or FATAL.   </p>
+    </section>
+
+    <div class="grid_6 omega shortcuts submenu">
+        <div class="panels-flexible-region panels-flexible-region-news-siderbar ">
+            <div class="panel-pane pane-block pane-menu-block-3 clearfix">
+                <h3 class="pane-title">Help</h3>
+
+                <div class="menu-block-wrapper menu-block-3 menu-name-main-menu parent-mlid-0 menu-level-3">
+                    <ul id="install-nav" class="menu">
+                        <li class="first leaf menu-mlid-3528 menu-press-releases mid-3528"><a href="local_installation.xhtml#download">Download the source code</a></li>
+                        <li class="leaf menu-mlid-3528 menu-press-releases mid-3528"><a href="local_installation.xhtml#requirements">Technologies and Requirements</a></li>
+                        <li class="leaf menu-mlid-3528 menu-press-releases mid-3528"><a href="local_installation.xhtml#scripts">Usage of pre-written scripts</a></li>
+                        <li class="last menu-mlid-3528 menu-press-releases mid-3528"><a href="local_installation.xhtml#commandline">Maven command line</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</ui:composition>

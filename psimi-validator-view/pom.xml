@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>psidev.psi.mi</groupId>
+        <artifactId>validator</artifactId>
+        <version>3.1.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>psimi-validator-view</artifactId>
+    <packaging>war</packaging>
+    <version>3.1.0-SNAPSHOT</version>
+
+    <name>PSI :: Schema Validator View :: PSI-MI Extension</name>
+
+    <properties>
+        <jetty.port>9095</jetty.port>
+
+        <psimi.obo.url>https://raw.githubusercontent.com/MICommunity/psidev/master/psi/mi/rel25/data/psi-mi25.obo</psimi.obo.url>
+        <psimod.obo.url>https://raw.githubusercontent.com/MICommunity/psidev/master/psi/mod/data/PSI-MOD.obo</psimod.obo.url>
+        <psipar.obo.url>https://raw.githubusercontent.com/MICommunity/psidev/master/psi/mi/controlledVocab/proteomeBinder/psi-par.obo</psipar.obo.url>
+
+        <notification.emails>intact-dev@ebi.ac.uk</notification.emails>
+
+        <spring.version>3.2.9.RELEASE</spring.version>
+
+    </properties>
+
+    <build>
+
+        <finalName>intact-${artifactId}-v${version}</finalName>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>buildnumber-maven-plugin</artifactId>
+                <version>1.4</version>
+            </plugin>
+            <plugin>
+                <groupId>org.mortbay.jetty</groupId>
+                <artifactId>maven-jetty-plugin</artifactId>
+                <version>6.1.5</version>
+                <configuration>
+                    <connectors>
+                        <connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
+                            <port>${jetty.port}</port>
+                        </connector>
+                    </connectors>
+                    <scanIntervalSeconds>10</scanIntervalSeconds>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>properties-maven-plugin</artifactId>
+                <version>1.0.0</version>
+                <executions>
+                    <execution>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>write-project-properties</goal>
+                        </goals>
+                        <configuration>
+                            <outputFile>${project.build.outputDirectory}/my.properties</outputFile>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <!-- Project dependencies -->
+    <dependencies>
+
+        <!-- PSI-MI Validator -->
+        <dependency>
+            <groupId>psidev.psi.mi</groupId>
+            <artifactId>psimi-schema-validator</artifactId>
+            <version>3.1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>psidev.psi.mi.jami</groupId>
+            <artifactId>jami-commons</artifactId>
+            <version>3.0.0-SNAPSHOT</version>
+        </dependency>
+
+        <!-- JAMI html view-->
+        <dependency>
+            <groupId>psidev.psi.mi.jami</groupId>
+            <artifactId>jami-html</artifactId>
+            <version>3.0.0-SNAPSHOT</version>
+        </dependency>
+
+        <!-- Spring -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jms</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aop</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+        <!-- Mail -->
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
+            <version>1.4.5</version>
+        </dependency>
+
+        <!-- JSF -->
+        <dependency>
+            <groupId>uk.ac.ebi.faces</groupId>
+            <artifactId>ebifaces-core</artifactId>
+            <version>1.3.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.sun.facelets</groupId>
+            <artifactId>jsf-facelets</artifactId>
+            <version>1.1.15.B1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.myfaces.core</groupId>
+            <artifactId>myfaces-api</artifactId>
+            <version>1.2.12</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.myfaces.core</groupId>
+            <artifactId>myfaces-impl</artifactId>
+            <version>1.2.12</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <!-- Apache MyFaces Trinidad -->
+        <dependency>
+            <groupId>org.apache.myfaces.trinidad</groupId>
+            <artifactId>trinidad-api</artifactId>
+            <version>1.2.14</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.myfaces.trinidad</groupId>
+            <artifactId>trinidad-impl</artifactId>
+            <version>1.2.14</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <!-- Apache MyFaces Orchestra -->
+        <dependency>
+            <groupId>org.apache.myfaces.orchestra</groupId>
+            <artifactId>myfaces-orchestra-core15</artifactId>
+            <version>1.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.myfaces.orchestra</groupId>
+            <artifactId>myfaces-orchestra-core</artifactId>
+            <version>1.5</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-el</groupId>
+            <artifactId>commons-el</artifactId>
+            <version>1.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.5</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.servlet.jsp</groupId>
+            <artifactId>jsp-api</artifactId>
+            <version>2.1</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Logging -->
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.17</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>javax.jms</groupId>
+                    <artifactId>jms</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!--
+              Quartz framework and dependencies
+            -->
+        <dependency>
+            <groupId>org.quartz-scheduler</groupId>
+            <artifactId>quartz</artifactId>
+            <version>2.1.5</version>
+        </dependency>
+
+    </dependencies>
+
+    <repositories>
+        <repository>
+            <id>intact.nexus</id>
+            <name>IntAct Nexus</name>
+            <url>http://www.ebi.ac.uk/intact/maven/nexus/content/groups/public/</url>
+        </repository>
+    </repositories>
+
+</project>

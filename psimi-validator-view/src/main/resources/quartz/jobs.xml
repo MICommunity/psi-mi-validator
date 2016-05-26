@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='utf-8'?>
+<job-scheduling-data xmlns="http://www.quartz-scheduler.org/xml/JobSchedulingData"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.quartz-scheduler.org/xml/JobSchedulingData http://www.quartz-scheduler.org/xml/job_scheduling_data_1_8.xsd"
+  version="1.8">
+
+    <schedule>
+        <job>
+            <name>validator-context-updater</name>
+            <group>intact-services-validator</group>
+
+            <description>This job checks if a new update of the ontology is available. If yes, will reload the ontology
+                and refresh the validator rules.</description>
+            <job-class>uk.ac.ebi.intact.services.validator.jobs.ValidatorContextUpdater</job-class>
+        </job>
+
+        <trigger>
+            <cron>
+                <name>every-6h-trigger</name>
+                <group>intact-services-validator</group>
+                <description>To execute the job every 6 hours</description>
+                <job-name>validator-context-updater</job-name>
+
+                <job-group>intact-services-validator</job-group>
+                <!-- trigger every day every 6h -->
+                <cron-expression>0 0 0/6 * * ?</cron-expression>
+            </cron>
+        </trigger>
+    </schedule>
+</job-scheduling-data>

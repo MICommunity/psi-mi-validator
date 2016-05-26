@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:tr="http://myfaces.apache.org/trinidad"
+                xmlns:trh="http://myfaces.apache.org/trinidad/html"
+                xmlns:c="http://java.sun.com/jstl/core"
+                xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+                xmlns:sf="http://www.ebi.ac.uk/faces/site">
+
+    <h2>Validator news</h2>
+
+    <section class="grid_18 alpha">
+        <a name="v_300"/>
+        <h3>Version 3.0.0</h3>
+
+        <p>The PSI-MI validator framework can now validate PSI-MITAB 2.5, 2.6 and 2.7 file formats. It is based on the JAMI framweork
+            (Java framework for Molecular Interactions) which is <a href="https://code.google.com/p/psimi/source/browse/trunk/psi-jami" target="_blank"> open source</a>.</p>
+
+        <a name="v_230"/>
+
+        <h3>Version 2.3.0</h3>
+
+        <h4>Rule update</h4>
+        <ul>
+            <li><tr:outputText value="Negative Interaction rule has been added for IMEx validation."/></li>
+
+            <li><tr:outputText value="When a sequence (protein, DNA, RNA) is not valid, it gives the invalid sequence portion and its positions."/></li>
+
+            <li><tr:outputText value="Bug fixed : if an interactor is a polysaccharide, the validator does not complain about the missing identity cross reference to a sequence database"/></li>
+        </ul>
+
+        <h4>Interface update</h4>
+        <ul>
+            <li><tr:outputText value="The form has been improved to be more user friendly (does not reload the page when selecting a file or scope)."/></li>
+
+            <li><tr:outputText value="Bug fixed : when selecting a file and then the validation scope, the file was lost. Now it is possible to select the file and then the validation scope without losing the file information."/></li>
+
+            <li><tr:outputText value="Bug fixed : if the validated file was of type 'expanded', the interactor links (in the context column) were not working properly properly"/></li>
+
+            <li><tr:outputText value="The HTML view can now display the experimental interactor(s) and experimental preparation(s) of a participant if it has been given."/></li>
+
+            <li><tr:outputText value="The validator messages are now clustered : an error message will appear only once and all the different contexts (interaction ids, experiment ids, feature ids and participant ids) will be listed in the 'context' column.
+        If the list of contexts is too long (more than three different contexts), only three contexts will be shown by default and a link is provided to show all the contexts if wanted."/></li>
+
+            <li><tr:outputText value="It is now possible to load a ZIP file containing one XML file. If several XML file are present in the ZIP file, only one XML file will be validated, the other files will be ignored. If the ZIP file contains other ZIP files
+        they will be ignored."/></li>
+            <li><tr:outputText value="A new scope PSI-MI has been added for basic checks included in MIMIx validation."/></li>
+            <li><tr:outputText value="A new scope 'Customized rules' has been added for users who want to select only a subset of rules available among PSI-MI, MIMIx and IMEx rules."/></li>
+
+        </ul>
+
+        <h4>Documentation update</h4>
+        <ul>
+            <li><tr:outputText value="The documentation about the IMEx dependency rules is now available in the user's guide ('Overview' section of the validator webpage)."/></li>
+
+            <li><tr:outputText value="The overview section of the validator has been improved : it is possible to go directly to the section of interest in the validator user's guide."/></li>
+
+        </ul>
+
+        <a name="v_221"/>
+
+        <h3>Version 2.2.1</h3>
+        <p>
+            <tr:outputText value="Some rules have been updated (mainly improvement of error messages)"/>
+            <br/>
+            <tr:outputText value="A new IMEx rule has been added to check that each interaction has at least one participant"/>
+        </p>
+
+        <a name="v_220"/>
+
+        <h3>Version 2.2.0</h3>
+
+        <p>
+            <tr:outputText value="In this new version, major bugs have been fixed. In the previous versions, some elements were never validated. It depended on the type of PSI-XML format the user choose to use (EX : experiments described within interactions were never validated. Experiments were only validated when the xml was of type 'compact')"/>
+            <br/>
+            <tr:outputText value="Now the validator has been refactored and is able to validate each element of the xml (xref, experiment, interactor, experimental interactors, interaction, organism, tissue, cell line, etc.)"/>
+
+            <br/>
+            <br/>
+            <tr:outputText value="Several rules have been reviewed or removed because were irrelevant for MIMIx or IMEx : "/>
+        </p>
+
+        <ul>
+            <li><tr:outputText value="Interactor Name Rule has been removed. It is not mandatory to give a shortlabel/fullname to interactors. It can be autogenerated by the different database importers/providers."/></li>
+
+            <li><tr:outputText value="When a cross reference to a sequence database with a qualifier 'identity' is attched to an interactor, the sequence is not necessary. The info message to alert users when the sequence of an interactor is not present has been removed."/></li>
+
+            <li><tr:outputText value="For IMEx, the taxId -3 (unknown) and -4 (in vivo) are not accepted. The TaxId Host Organism Rule has been changed and doesn't accept such taxIds when the validation scope is IMEx."/></li>
+        </ul>
+
+        <p>
+            <tr:outputText value="New MIMIx rules have been added "/>
+        </p>
+
+        <ul>
+            <li><tr:outputText value="Participant's biologicale role rule : checks that each participant has a biological rule, it is required by MIMIx"/></li>
+
+            <li><tr:outputText value="Participant's experimental role rule : checks that each participant has at least one experimental rule, it is required by MIMIx"/></li>
+
+            <li><tr:outputText value="Interactor's organism rule : checks that each interactor has an organism, it is required by MIMIx"/></li>
+        </ul>
+
+        <p>
+            <tr:outputText value="New IMEx rules have been added "/>
+        </p>
+
+        <ul>
+            <li><tr:outputText value="Tissue's cross reference rule : checks if a tissue has a cross reference to BRENDA or Tissue List with a qualifier 'identity'. It is strongly recommended by IMEx."/></li>
+
+            <li><tr:outputText value="Cell type cross reference rule : checks if a cell line has a cross reference to CABRI or Cell Ontology with a qualifier 'identity'. It is strongly recommended by IMEx. If no cross references are found, at least one primary reference to pubmed should be given."/></li>
+
+            <li><tr:outputText value="Interactor's type rule : checks that each interactor has a valid interactor type, it is required by IMEx. If one interactor is 'nucleic acid' or 'small molecule', it should be removed from the file as IMEx is not considering such interactors for the moment."/></li>
+
+            <li><tr:outputText value="Interaction's type rule : checks that each interaction has at least one interaction type and that all interaction types have a valid PSI-MI cross reference. It is required by IMEx."/></li>
+
+            <li><tr:outputText value="Feature's type rule : checks that each feature has a valid feature type. It is required by IMEx."/></li>
+
+            <li><tr:outputText value="Interaction's figure legend rule : IMEx recommends that each interaction has at least one figure legend."/></li>
+
+            <li><tr:outputText value="Experiment's attributes rule : checks that each attribute attached to an experiment has a valid PSI-MI term and is recognized by IMEx as a valid experiment's attribute. Check the IMEx manual to see which attribute is accepted."/></li>
+
+            <li><tr:outputText value="Binding site rule : when a feature is a binding site, the size of the feature should be superior or equal to 1, otherwise it should be a mutation."/></li>
+
+        </ul>
+
+        <a name="v_211"/>
+
+        <h3>Version 2.1.1</h3>
+
+        <p>
+            <tr:outputText value="This new version has fixed bugs : "/>
+        </p>
+
+        <ul>
+            <li><tr:outputText value="Update of the PSI-XML library : the validator is now using psi25-xml 1.7.9-SNAPSHOT which fixed one bug of the writer (Not able to write PSI MI files having several entries in a same entryset) "/></li>
+
+            <li><tr:outputText value="The Database cross reference Check was not looking at all the cross references (only experiment xRef, experiment Bibref and interaction Xref). It should also look at the interactor cross references, controlled vocabularies xrefs, etc."/></li>
+
+            <li><tr:outputText value="One dependency of type interaction detection method - interaction type was wrong : When having ipac - association, it is not required to have than one bait."/></li>
+        </ul>
+
+        <a name="v_210"/>
+
+        <h3>Version 2.1.0</h3>
+
+        <p>
+            <tr:outputText value="This version contains major updates of the IMEx rules. You can look at the "/>
+            <tr:commandLink text="documentation" action="documentation.help"/>
+            <tr:outputText value=" (section Validation scopes/IMEx curation Standards) for more information about the implemented rules."/>
+        </p>
+
+
+        <p>
+            <tr:outputText value="Update of the PSI-XML library : the validator is now using psi25-xml 1.7.7-SNAPSHOT which fixed several bugs of the parser such as "/>
+        </p>
+        <ul>
+            <li><tr:outputText value="Not handling interactions as participants of an interaction."/></li>
+            <li><tr:outputText value="Not writting and reading annotations of the participant."/></li>
+            <li><tr:outputText value="Not handling experiments without any Pubmed IDs or DOI numbers but only with attributes."/></li>
+        </ul>
+
+        <p>
+            <tr:outputText value="One new rule have been added for general PSI-MI validation : "/>
+        </p>
+
+        <ul>
+            <li><tr:outputText value="Database cross reference Check : Checks that the each database cross reference is using a valid database accession which matches the regular expression of the database."/></li>
+        </ul>
+
+        <p>
+            <tr:outputText value="One new rule have been added for MIMIx validation : "/>
+        </p>
+
+        <ul>
+            <li><tr:outputText value="Feature range Check : Checks that the each interactor's feature range is valid. It cannot be out of bound (inferior to 1 or superior to the sequence length), not overlapping and compliant with the feature range status."/>
+                <br/>
+                <tr:outputText value="WARNING : the status 'c-terminal' and 'n-terminal' cannot be used anymore for n-terminal and c-terminal features where the exact positions are not known. It is recommended to use the new terms 'c-terminal range' (MI:1039) and 'n-terminal range' (MI:1040) for such features"></tr:outputText>
+            </li>
+        </ul>
+    </section>
+
+    <div class="grid_6 omega shortcuts submenu">
+        <div class="panels-flexible-region panels-flexible-region-news-siderbar ">
+            <div class="panel-pane pane-block pane-menu-block-3 clearfix">
+                <h3 class="pane-title">Validator Changes</h3>
+
+                <div class="menu-block-wrapper menu-block-3 menu-name-main-menu parent-mlid-0 menu-level-3">
+                    <ul id="news-nav" class="menu">
+                        <li class="first leaf menu-mlid-3528 menu-press-releases mid-3528"><a href="../../news.xhtml#v_300">Version 3.0.0 (latest version)</a></li>
+                        <li class="leaf menu-mlid-3528 menu-press-releases mid-3528"><a href="../../news.xhtml#v_230">Version 2.3.0</a></li>
+                        <li class="leaf menu-mlid-3528 menu-press-releases mid-3528"><a href="../../news.xhtml#v_221">Version 2.2.1</a></li>
+                        <li class="leaf menu-mlid-3528 menu-press-releases mid-3528"><a href="../../news.xhtml#v_220">Version 2.2.0</a></li>
+                        <li class="leaf menu-mlid-3528 menu-press-releases mid-3528"><a href="../../news.xhtml#v_211">Version 2.1.1</a></li>
+                        <li class="last menu-mlid-3528 menu-press-releases mid-3528"><a href="../../news.xhtml#v_210">Version 2.1.0</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</ui:composition>

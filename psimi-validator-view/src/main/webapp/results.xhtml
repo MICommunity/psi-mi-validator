@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:tr="http://myfaces.apache.org/trinidad"
+        xmlns:trh="http://myfaces.apache.org/trinidad/html"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:c="http://java.sun.com/jstl/core"
+        xmlns:ebi="http://ebi.ac.uk/faces/components"
+
+        template="/WEB-INF/facelets/layout/compliance-template-ebi.xhtml">
+
+<!-- Mandatorty params -->
+<ui:param name="sectionTitle" value="Validation Results"/>
+
+<ui:define name="windowTitle">
+    <tr:outputText value="#{ebiTest['webapp.name']}"/>
+</ui:define>
+
+<ui:define name="content">
+
+<h:messages id="allMessages" style="color:red;margin:8px;" />
+
+<!-- Uploaded file report table -->
+<section class="grid_24">
+    <tr:group rendered="#{psiValidatorController.currentPsiReport != null}">
+        <h2>Validation summary</h2>
+
+        <section class="push_4 grid_20">
+            <p>
+                <strong><h:outputText value="File name: "/></strong>
+                <h:outputText value="#{psiValidatorController.currentPsiReport.name}"/>
+            </p>
+        </section>
+        <section class="grid_24">
+            <div class="grid_4">
+                <tr:image source="images/icon_success_sml.gif"
+                          rendered="#{psiValidatorController.currentPsiReport.syntaxValid}"/>
+                <tr:image source="images/icon_warning_sml.gif"
+                          rendered="#{psiValidatorController.currentPsiReport.syntaxStatus == 'warnings'}"/>
+                <tr:image source="images/icon_error_sml.gif"
+                          rendered="#{psiValidatorController.currentPsiReport.syntaxInvalid}"/>
+            </div>
+            <div class="grid_6">
+                <p>
+                    <strong><h:outputText value="File Syntax: "/></strong>
+                    <h:outputText value="#{psiValidatorController.currentPsiReport.syntaxStatus}"/>
+                </p>
+            </div>
+            <div class="grid_6">
+                <p>
+                    <h:outputText value="#{psiValidatorController.currentPsiReport.numberOfSyntaxMessages} messages" rendered="#{psiValidatorController.currentPsiReport.numberOfSyntaxMessages > 0}"/>
+                </p>
+            </div>
+            <div class="grid_6">
+                <tr:panelHorizontalLayout rendered="#{psiValidatorController.currentPsiReport.syntaxInvalid or psiValidatorController.currentPsiReport.syntaxStatus == 'warnings'}">
+                    <tr:goLink destination="#v_report">
+                        <tr:outputText value="Report"/>
+                    </tr:goLink>
+                </tr:panelHorizontalLayout>
+            </div>
+        </section>
+        <tr:group rendered="#{psiValidatorController.currentPsiReport.semanticReportAvailable}">
+            <section class="grid_24">
+                <div class="grid_4">
+                    <tr:image source="images/icon_success_sml.gif"
+                              rendered="#{psiValidatorController.currentPsiReport.semanticValid}"/>
+                    <tr:image source="images/icon_warning_sml.gif"
+                              rendered="#{psiValidatorController.currentPsiReport.semanticsStatus == 'warnings'}"/>
+                    <tr:image source="images/icon_error_sml.gif"
+                              rendered="#{psiValidatorController.currentPsiReport.semanticInvalid}"/>
+                </div>
+                <div class="grid_6">
+                    <p>
+                        <strong><h:outputText value="File Semantics: "/></strong>
+                        <h:outputText value="#{psiValidatorController.currentPsiReport.semanticsStatus}"/>
+                    </p>
+                </div>
+                <div class="grid_6">
+                    <p>
+                        <h:outputText value="#{psiValidatorController.currentPsiReport.numberOfSemanticMessages} messages" rendered="#{psiValidatorController.currentPsiReport.numberOfSemanticMessages > 0}"/>
+                    </p>
+                </div>
+                <div class="grid_6">
+                    <tr:goLink destination="#v_report" rendered="#{psiValidatorController.currentPsiReport.semanticInvalid}">
+                        <tr:outputText value="Report"/>
+                    </tr:goLink>
+                </div>
+            </section>
+        </tr:group>
+    </tr:group>
+</section>
+
+
+<!-- Validation Report (if any messages) -->
+<section class="grid_24">
+    <a name="v_report"/>
+    <tr:group rendered="#{psiValidatorController.currentPsiReport.semanticReportAvailable or psiValidatorController.currentPsiReport.syntaxInvalid or psiValidatorController.currentPsiReport.syntaxStatus == 'warnings'}">
+        <h2>PSI MI Validation Report</h2>
+
+        <dd>
+            <h:outputText value="#{psiValidatorController.currentPsiReport.interactionCount} interaction(s) validated." rendered="#{not psiValidatorController.currentPsiReport.syntaxInvalid}"/>
+        </dd>
+        <tr:form id="ebiForm2" usesUpload="true" styleClass="grid_24">
+            <tr:table var="msg" value="#{psiValidatorController.currentPsiReport.validatorMessages}">
+
+                <f:facet name="detailStamp">
+
+                    <tr:switcher facetName="#{msg.rule['class'].simpleName}" defaultFacet="default" >
+
+                        <f:facet name="default">
+                            <tr:panelFormLayout>
+
+                                <tr:panelLabelAndMessage label="Name:" labelStyle="font-weight: bold" >
+                                    <tr:outputText value="#{msg.rule.name}"/>
+                                </tr:panelLabelAndMessage>
+
+                                <tr:panelLabelAndMessage label="Scope:" labelStyle="font-weight: bold">
+                                    <tr:outputText value="#{msg.rule.scope}"/>
+                                </tr:panelLabelAndMessage>
+
+                                <tr:panelLabelAndMessage label="Description:" labelStyle="font-weight: bold">
+                                    <tr:outputText value="#{msg.rule.description}"/>
+                                </tr:panelLabelAndMessage>
+
+                                <tr:panelLabelAndMessage label="Tips:" labelStyle="font-weight: bold" >
+                                    <tr:panelList>
+                                        <tr:iterator value="#{msg.rule.howToFixTips}" var="tip"
+                                                     rendered="#{msg.rule.howToFixTips != null and not empty msg.rule.howToFixTips}">
+                                            <tr:outputText value="#{tip}"/>
+                                        </tr:iterator>
+                                    </tr:panelList>
+                                </tr:panelLabelAndMessage>
+                            </tr:panelFormLayout>
+                        </f:facet >
+
+                        <f:facet name="MICvRule">
+                            <tr:panelFormLayout>
+                                <tr:panelLabelAndMessage label="Type:" labelStyle="font-weight: bold">
+                                    <tr:outputText value="Controlled vocabulary usage rule"/>
+                                </tr:panelLabelAndMessage>
+
+                                <tr:panelLabelAndMessage label="Scope:" labelStyle="font-weight: bold">
+                                    <tr:outputText value="#{msg.rule.name}"/>
+                                </tr:panelLabelAndMessage>
+
+                                <tr:panelLabelAndMessage label="Requirement:" labelStyle="font-weight: bold">
+                                    <tr:outputText value="#{msg.rule.requirementLevel}"/>
+                                </tr:panelLabelAndMessage>
+                            </tr:panelFormLayout>
+                        </f:facet >
+
+                    </tr:switcher>
+
+                </f:facet>
+
+                <tr:column >
+                    <tr:image source="images/icon_warning_sml.gif" rendered="#{msg.level == 'WARN'}" shortDesc="#{msg.level}"/>
+                    <tr:image source="images/icon_error_sml.gif" rendered="#{msg.level == 'ERROR'}" shortDesc="#{msg.level}"/>
+                    <tr:image source="images/icon_error_sml.gif" rendered="#{msg.level == 'FATAL'}" shortDesc="#{msg.level}"/>
+                </tr:column>
+
+                <tr:column headerText="Description">
+                    <tr:outputText value="#{msg.message}" />
+                </tr:column>
+
+                <!-- Build a links to respective object anchor's -->
+                <tr:column headerText="Context">
+                    <tr:iterator value="#{msg.context.contexts}" var="ctxt" rows="3" first="0">
+                        <h:panelGroup styleClass="errorContext">
+                            <tr:goLink destination="##{ctxt.locator}" rendered="#{ctxt.contextWithAnchor}">
+                                <nobr><tr:outputText value="#{ctxt.objectLabel} #{ctxt.locator}" /></nobr>
+                            </tr:goLink>
+                            <tr:outputText value="#{ctxt.objectLabel} #{ctxt.locator}" rendered="#{ not ctxt.contextWithAnchor}"/>
+                        </h:panelGroup>
+                        <tr:iterator value="#{ctxt.associatedContexts}" var="a_ctxt">
+                            <h:panelGroup styleClass="errorContext">
+                                <tr:goLink destination="##{a_ctxt.locator}" rendered="#{a_ctxt.contextWithAnchor}">
+                                    <nobr><tr:outputText value="#{a_ctxt.objectLabel} #{a_ctxt.locator}" /></nobr>
+                                </tr:goLink>
+                                <tr:outputText value="#{a_ctxt.objectLabel} #{a_ctxt.locator}" rendered="#{ not a_ctxt.contextWithAnchor}"/>
+                            </h:panelGroup>
+                        </tr:iterator>
+                    </tr:iterator>
+                    <tr:iterator value="#{msg.context.contexts}" var="ctxt" first="3">
+                        <h:panelGroup styleClass="errorContext errorContextDetails">
+                            <tr:goLink destination="##{ctxt.locator}" rendered="#{ctxt.contextWithAnchor}">
+                                <nobr><tr:outputText value="#{ctxt.objectLabel} #{ctxt.locator}" /></nobr>
+                            </tr:goLink>
+                            <tr:outputText value="#{ctxt.objectLabel} #{ctxt.locator}" rendered="#{ not ctxt.contextWithAnchor}"/>
+                        </h:panelGroup>
+                        <tr:iterator value="#{ctxt.associatedContexts}" var="a_ctxt">
+                            <h:panelGroup styleClass="errorContext errorContextDetails">
+                                <tr:goLink destination="##{a_ctxt.locator}" rendered="#{a_ctxt.contextWithAnchor}">
+                                    <nobr><tr:outputText value="#{a_ctxt.objectLabel} #{a_ctxt.locator}" /></nobr>
+                                </tr:goLink>
+                                <tr:outputText value="#{a_ctxt.objectLabel} #{a_ctxt.locator}" rendered="#{ not a_ctxt.contextWithAnchor}"/>
+                            </h:panelGroup>
+                        </tr:iterator>
+                    </tr:iterator>
+                    <!-- behavior for these links is in validator.js, listeners are bound dynamically -->
+                    <tr:goLink styleClass="showErrorContextDetails" rendered="#{msg.context.numberOfContexts > 3}"><tr:outputText value="Show all contexts" inlineStyle="font-weight: bold"/></tr:goLink>
+                    <tr:goLink styleClass="hideErrorContextDetails errorContextDetails"><tr:outputText value="Hide" inlineStyle="font-weight: bold"/></tr:goLink>
+                </tr:column>
+            </tr:table>
+        </tr:form>
+    </tr:group>
+
+</section>
+
+<!-- HTML View -->
+<section class="grid_24">
+    <a name="html_view"/>
+    <tr:group rendered="#{psiValidatorController.currentPsiReport != null and psiValidatorController.currentPsiReport.syntaxValid}">
+        <div>
+            <tr:outputText value="#{psiValidatorController.currentPsiReport.htmlView}" escape="false"/>
+        </div>
+    </tr:group>
+</section>
+
+</ui:define>
+</ui:composition>

@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
+              xmlns:xi="http://www.w3.org/2001/XInclude"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_1_2.xsd">
+
+    <application>
+        <view-handler>uk.ac.ebi.intact.services.validator.application.CustomViewHandler</view-handler>
+        <default-render-kit-id>
+            org.apache.myfaces.trinidad.core
+        </default-render-kit-id>
+
+        <el-resolver>
+            org.springframework.web.jsf.el.SpringBeanFacesELResolver
+        </el-resolver>
+
+        <resource-bundle>
+            <base-name>uk.ac.ebi.faces.EbiTest</base-name>
+            <var>ebiTest</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>validator.BuildInfo</base-name>
+            <var>buildInfo</var>
+        </resource-bundle>
+    </application>
+
+    <!-- ====================== -->
+    <!-- Navigation rules       -->
+    <!-- ====================== -->
+
+    <navigation-rule>
+        <from-view-id>*</from-view-id>
+        <navigation-case>
+            <from-outcome>start</from-outcome>
+            <to-view-id>/start.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>*</from-view-id>
+        <navigation-case>
+            <from-outcome>results</from-outcome>
+            <to-view-id>/results.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>*</from-view-id>
+        <navigation-case>
+            <from-outcome>documentation.local_installation</from-outcome>
+            <to-view-id>/local_installation.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>documentation.news</from-outcome>
+            <to-view-id>/news.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+	<navigation-rule>
+        <from-view-id>*</from-view-id>
+        <navigation-case>
+			<from-outcome>documentation.help</from-outcome>
+			<to-view-id>/help.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>*</from-view-id>
+        <navigation-case>
+            <from-outcome>documentation.about</from-outcome>
+            <to-view-id>/about.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+</faces-config>
