@@ -63,7 +63,7 @@ public class InteractionDetectionMethod2InteractionTypeDependencyRule extends Ab
         setName( "Dependency Check : Interaction detection method and interaction type" );
         setDescription( "Checks that each association interaction detection method - interaction type is valid and respects IMEx curation rules." );
         addTip( "Search the possible terms for interaction detection method and interaction type on http://www.ebi.ac.uk/ontology-lookup/browse.do?ontName=MI" );
-        addTip( "Look at the file http://psimi.googlecode.com/svn/trunk/validator/psimi-schema-validator/src/main/resources/InteractionDetectionMethod2InteractionTypes.tsv for the possible dependencies interaction detection method - interaction type" );
+//        addTip( "Look at the file http://psimi.googlecode.com/svn/trunk/validator/psimi-schema-validator/src/main/resources/InteractionDetectionMethod2InteractionTypes.tsv for the possible dependencies interaction detection method - interaction type" );
     }
 
 

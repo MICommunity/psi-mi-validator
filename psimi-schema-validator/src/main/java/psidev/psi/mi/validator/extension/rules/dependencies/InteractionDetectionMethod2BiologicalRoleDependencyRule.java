@@ -59,7 +59,7 @@ public class InteractionDetectionMethod2BiologicalRoleDependencyRule extends Abs
         setName( "Dependency Check : Interaction detection method and participant's biological role" );
         setDescription( "Checks that each association interaction detection method - participant's biological role is valid and respects IMEx curation rules");
         addTip( "Search the possible terms for interaction detection method and biological role on http://www.ebi.ac.uk/ontology-lookup/browse.do?ontName=MI" );
-        addTip( "Look at the file http://psimi.googlecode.com/svn/trunk/validator/psimi-schema-validator/src/main/resources/InteractionDetectionMethod2BiologicalRole.tsv for the possible dependencies interaction detection method - biological role" );        
+        addTip( "Look at the file https://github.com/MICommunity/PSI-MI-Validator/blob/master/psimi-schema-validator/src/main/resources/InteractionDetectionMethod2BiologicalRole.tsv for the possible dependencies interaction detection method - biological role" );
     }
 
     /**
