@@ -25,6 +25,7 @@ import psidev.psi.tools.validator.MessageLevel;
 import psidev.psi.tools.validator.ValidatorMessage;
 import psidev.psi.tools.validator.rules.Rule;
 
+import java.rmi.RemoteException;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -209,9 +210,13 @@ public final class RuleUtils {
                             rule ) ));
                 } else {
                     // TODO optimize via caching of valid taxid for a period of time (in a same file it is very likely that we will see only a handful of taxids.)
-                    final OntologyAccess newt = ontologyManager.getOntologyAccess( "NEWT" );
-                    final OntologyTermI newtTerm = newt.getTermForAccession( String.valueOf( taxId ) );
-                    if ( newtTerm == null ) {
+                    final OntologyAccess ontologyAccess = ontologyManager.getOntologyAccess( "NCBITaxon" );
+                    OntologyTermI ontologyTermI = null;
+                    try{
+                        ontologyTermI = ontologyAccess.getTermForAccession( "NCBITaxon:" + String.valueOf(taxId) );
+                    } catch (IllegalStateException ignored){
+                    }
+                    if ( ontologyTermI == null ) {
                         // could not find it
                         context = RuleUtils.buildContext(organism, "organism");
                         final String msg = objectType + " with an invalid " + organismType + ", the taxid given was '" +
