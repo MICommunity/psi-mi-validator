@@ -16,12 +16,11 @@ import psidev.psi.tools.validator.MessageLevel;
 import psidev.psi.tools.validator.ValidatorException;
 import psidev.psi.tools.validator.ValidatorMessage;
 import uk.ac.ebi.pride.utilities.ols.web.service.client.OLSClient;
-import uk.ac.ebi.pride.utilities.ols.web.service.config.OLSWsConfigDev;
+import uk.ac.ebi.pride.utilities.ols.web.service.config.OLSWsConfigProd;
 import uk.ac.ebi.pride.utilities.ols.web.service.model.Identifier;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.rmi.RemoteException;
 import java.util.*;
 import java.util.regex.Pattern;
 
@@ -121,7 +120,7 @@ public class DatabaseAccessionRule extends AbstractMIRule<Xref> {
 
         // setting up OLS client
         try {
-            olsClient = new OLSClient(new OLSWsConfigDev());
+            olsClient = new OLSClient(new OLSWsConfigProd());
         } catch ( Exception e ) {
             log.error( "Exception setting up OLS olsClient client! The database cross reference check will not be effective.", e );
         }
