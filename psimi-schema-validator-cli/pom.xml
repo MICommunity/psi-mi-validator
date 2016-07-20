@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -9,10 +9,7 @@
         <version>3.1.0-SNAPSHOT</version>
     </parent>
 
-    <groupId>psidev.psi.mi</groupId>
     <artifactId>psimi-schema-validator-cli</artifactId>
-    <version>3.1.0-SNAPSHOT</version>
-
     <name>PSI :: Schema Validator CLI :: PSI-MI Extension</name>
 
     <properties>
@@ -20,10 +17,30 @@
         <level>INFO</level>
     </properties>
 
+    <build>
+        <plugins>
+            <!--Avoid deployment of the application in nexus -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+            <!--Avoid installation of the application locally -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
     <profiles>
         <profile>
             <id>validate</id>
-
             <build>
                 <plugins>
                     <plugin>
@@ -44,7 +61,7 @@
                                 <argument>-classpath</argument>
                                 <!-- automatically creates the classpath using all project dependencies,
                                      also adding the project build directory -->
-                                <classpath />
+                                <classpath/>
                                 <argument>psidev.psi.mi.ValidatorClient</argument>
                                 <!-- The file to validate, when a directory is given, process all files with an extension .SYNTAX recursively -->
                                 <argument>${file}</argument>
@@ -64,23 +81,13 @@
         <dependency>
             <groupId>psidev.psi.mi</groupId>
             <artifactId>psimi-schema-validator</artifactId>
-            <version>${pom.version}</version>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.10</version>
-            <scope>test</scope>
         </dependency>
     </dependencies>
-
-    <repositories>
-        <repository>
-            <id>intact.nexus</id>
-            <name>IntAct Nexus</name>
-            <url>http://www.ebi.ac.uk/intact/maven/nexus/content/groups/public</url>
-        </repository>
-    </repositories>
 
 </project>
