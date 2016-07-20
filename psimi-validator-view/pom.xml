@@ -24,7 +24,7 @@
 
     <build>
 
-        <finalName>intact-${artifactId}-v${version}</finalName>
+        <finalName>intact-${project.artifactId}-v${project.version}</finalName>
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
