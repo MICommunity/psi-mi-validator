@@ -1,29 +1,20 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
     <parent>
         <groupId>psidev.psi.mi</groupId>
         <artifactId>validator</artifactId>
-        <version>1.8.6-SNAPSHOT</version>
+        <version>3.1.0</version>
     </parent>
 
-    <modelVersion>4.0.0</modelVersion>
-
-    <groupId>psidev.psi.mi</groupId>
     <artifactId>psimi-schema-validator</artifactId>
     <packaging>jar</packaging>
-    <version>3.0.2-SNAPSHOT</version>
-
     <name>PSI :: Schema Validator :: PSI-MI Extension</name>
     <description>
         The library intends to provide a framework for validating
         PSI-MI XML Schema both at the syntactic and semantic level.
     </description>
-
-    <scm>
-        <connection>scm:svn:https://psimi.googlecode.com/svn/trunk/validator/psimi-schema-validator/</connection>
-        <developerConnection>scm:svn:https://psimi.googlecode.com/svn/trunk/validator/psimi-schema-validator/</developerConnection>
-        <url>http://code.google.com/p/psimi/source/browse/trunk/validator/psimi-schema-validator</url>
-    </scm>
 
     <build>
         <plugins>
@@ -56,64 +47,6 @@
                     </descriptors>
                 </configuration>
             </plugin>
-
-<plugin>
-				<artifactId>maven-source-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>attach-source</id>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>2.7</version>
-				<executions>
-					<execution>
-						<id>attach-javadocs</id>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-dependency-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>copy-dependencies</id>
-						<phase>package</phase>
-						<goals>
-							<goal>copy-dependencies</goal>
-						</goals>
-						<configuration>
-							<outputDirectory>${project.build.directory}/lib</outputDirectory>
-							<overWriteReleases>false</overWriteReleases>
-							<overWriteSnapshots>false</overWriteSnapshots>
-							<overWriteIfNewer>true</overWriteIfNewer>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<!-- Additions Noe -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<configuration>
-					<archive>
-						<manifest>
-
-							<addClasspath>true</addClasspath>
-							<classpathPrefix>lib</classpathPrefix>
-						</manifest>
-					</archive>
-				</configuration>
-			</plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
@@ -127,18 +60,54 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                            <overWriteReleases>false</overWriteReleases>
+                            <overWriteSnapshots>false</overWriteSnapshots>
+                            <overWriteIfNewer>true</overWriteIfNewer>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.6</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>lib</classpathPrefix>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
-    <dependencies>
-        <!-- Tests -->
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.10</version>
-            <scope>test</scope>
-        </dependency>
+    <profiles>
+        <profile>
+            <id>disable-java8-doclint</id>
+            <activation>
+                <jdk>[1.8,)</jdk>
+            </activation>
+            <properties>
+                <additionalparam>-Xdoclint:none</additionalparam>
+            </properties>
+        </profile>
+    </profiles>
 
+    <dependencies>
         <!-- PSI libs -->
         <dependency>
             <groupId>psidev.psi.tools</groupId>
@@ -148,18 +117,17 @@
         <dependency>
             <groupId>psidev.psi.tools</groupId>
             <artifactId>ontology-manager</artifactId>
-            <version>2.0.5</version>
+            <version>${ontology.manager.version}</version>
         </dependency>
 
         <!-- JAMI libs -->
         <dependency>
             <groupId>psidev.psi.mi.jami</groupId>
             <artifactId>jami-commons</artifactId>
-            <version>${jami.commons.version}</version>
+            <version>${jami.version}</version>
         </dependency>
 
         <!-- OBO -->
-
         <dependency>
             <groupId>obo</groupId>
             <artifactId>obo</artifactId>
@@ -195,23 +163,8 @@
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
-            <version>1.2.17</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>javax.jms</groupId>
-                    <artifactId>jms</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
 
     </dependencies>
-
-    <repositories>
-        <repository>
-            <id>intact.nexus</id>
-            <name>IntAct Nexus</name>
-            <url>http://www.ebi.ac.uk/intact/maven/nexus/content/groups/public/</url>
-        </repository>
-    </repositories>
 
 </project>

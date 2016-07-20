@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:tr="http://myfaces.apache.org/trinidad"
+        xmlns:trh="http://myfaces.apache.org/trinidad/html"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:c="http://java.sun.com/jstl/core"
+        xmlns:ebi="http://ebi.ac.uk/faces/components"
+        template="/WEB-INF/facelets/layout/compliance-template-ebi.xhtml">
+
+<ui:param name="sectionTitle" value="Help"/>
+
+<ui:define name="windowTitle">
+    <tr:outputText value="Help"/>
+</ui:define>
+
+<ui:define name="content">
+<section class="grid_18 alpha">
+<section class="grid_18">
+    <a name="intro"/>
+    <h2>PSI-MI and PSI-PAR validation</h2>
+
+    <p>The validator can use two different data models to validate the files :</p>
+
+    <h3>Molecular interactions (PSI-MI ontology)</h3>
+
+    <p>The validator will execute a set of rules based on the PSI-MI ontology to check your file(s). It can check 5 possible
+        levels with lower levels being included in a higher rank verification. The 'Customized rules' level is a little different as it includes
+        the two first levels (File syntax and usage of controlled vocabulary usage).
+        <ul>
+            <li>File syntax</li>
+            <li>Usage of controlled-vocabulary defined in the PSI-MI ontology</li>
+            <li>PSI-MI basic checks</li>
+            <li>MIMIx-compliance</li>
+            <li>IMEx-compliance</li>
+        </ul>
+    </p>
+    <h3>Protein Affinity Reagents (PSI-PAR ontology)</h3>
+
+    <p>The validator will execute a set of rules based on the PSI-PAR ontology to check your file(s). It can check 2 possible
+        levels with lower levels being included in a higher rank verification.
+        <ul>
+            <li>File syntax</li>
+            <li>Usage of controlled-vocabulary defined in the PSI-PAR ontology</li>
+        </ul>
+        The scope 'XML syntax' is not specific to the chosen data-model because both data models are using the same XML schema : PSI-XML 2.5.
+    </p>
+</section>
+<section class="grid_18">
+    <a name="scopes"/>
+    <h2>Validation Scope</h2>
+
+    <p>The validation levels described below define the the stringency of the validation rules applied to a dataset.
+        As the image below illustrates, the currently supported levels are built on top of one another except for the 'Customized rules' scope which includes XML syntax and controlled vocabulary usage
+        but then the object rules can be a mix of PSI-MI, MIMIx and IMEx.</p>
+
+    <h3>PSI-MI Validation Scopes</h3>
+    <tr:image source="images/mi_scopes_2.png"/>
+
+    <p>
+        <strong>WARNING: </strong> All the rules for MIMIx are used in the IMEx scope except for one : the taxId '-5' for 'in sillico' is a valid taxId for MIMIx but not for IMEx
+        because IMEx is relying in experimental molecular interactions.</p>
+
+    <h3>PSI-PAR Validation Scopes</h3>
+
+    <tr:image source="images/par_scopes.png"/>
+</section>
+<section class="grid_18">
+    <a name ="syntax"/>
+    <h2>File syntax</h2>
+    <p>If the file is a PSI-XML 2.5 file, checks that the document to validate is properly defined according to the following XML schemas:
+        <ul>
+            <li><tr:goLink destination="http://psidev.sourceforge.net/mi/rel25/src/MIF253.xsd" targetFrame="_blank">PSI-MI XML 2.5.3</tr:goLink></li>
+            <li><tr:goLink destination="http://psidev.sourceforge.net/mi/rel25/src/MIF254.xsd" targetFrame="_blank">PSI-MI XML 2.5.4</tr:goLink></li>
+        </ul>
+    </p>
+    <p>
+        You can also look at the auto-generated documentation of the schema
+        <tr:goLink destination="http://psidev.sourceforge.net/molecular_interactions/rel25/doc/" targetFrame="_blank">2.5.4</tr:goLink>
+    </p>
+    <p>
+        If the file is a MITAB file, checks that the document to validate is properly defined according to the following MITAB specifications:
+        <ul>
+            <li><tr:goLink destination="http://code.google.com/p/psicquic/wiki/MITAB25Format" targetFrame="_blank">MITAB 2.5</tr:goLink></li>
+            <li><tr:goLink destination="http://code.google.com/p/psicquic/wiki/MITAB26Format" targetFrame="_blank">MITAB 2.6</tr:goLink></li>
+            <li><tr:goLink destination="http://code.google.com/p/psicquic/wiki/MITAB27Format" targetFrame="_blank">MITAB 2.7</tr:goLink></li>
+        </ul>
+    </p>
+
+    <p>Note: If your document does not pass this validation stage (report some FATAL messages), none of the levels below can be executed.</p>
+</section>
+<section class="grid_18">
+    <a name ="controlled_vocabulary"/>
+    <h2>Controlled Vocabulary Usage</h2>
+
+    <p>This ensures that the use of controlled vocabularies is correct. That is, for each controlled
+        vocabulary place-holder, it checks that one uses the appropriate set of terms as defined in the
+        <tr:goLink destination="http://www.ebi.ac.uk/ontology-lookup/browse.do?ontName=MI" targetFrame="_blank"> PSI-MI ontology</tr:goLink> or in the
+        <tr:goLink destination="http://www.ebi.ac.uk/ontology-lookup/browse.do?ontName=MI" targetFrame="_blank"> PSI-PAR ontology</tr:goLink> depending on which data-model
+        you first choose.</p>
+
+    <p>The rule is currently looking at:</p>
+
+    <table cellspacing="0" cellpadding="0">
+        <tr>
+            <td><strong><em>Interaction detection method</em></strong></td>
+            <td><tr:goLink destination="http://www.ebi.ac.uk/ontology-lookup/browse.do?ontName=MI&amp;termId=MI%3A0001&amp;termName=interaction%20detection%20method" targetFrame="_blank">PSI-MI</tr:goLink></td>
+            <td><tr:goLink destination="http://www.ebi.ac.uk/ontology-lookup/browse.do?ontName=PAR&amp;termId=PAR%3A0001&amp;termName=interaction%20detection%20method" targetFrame="_blank">PSI-PAR</tr:goLink></td>
+        </tr>
+        <tr>
+            <td><strong><em>Interaction type</em></strong></td>
+            <td><tr:goLink destination="http://www.ebi.ac.uk/ontology-lookup/browse.do?ontName=MI&amp;termId=MI%3A0190&amp;termName=interaction%20type" targetFrame="_blank">PSI-MI</tr:goLink></td>
+            <td><tr:goLink destination="http://www.ebi.ac.uk/ontology-lookup/browse.do?ontName=PAR&amp;termId=PAR%3A0190&amp;termName=interaction%20type" targetFrame="_blank">PSI-PAR</tr:goLink></td>
+        </tr>
+        <tr>
+            <td><strong><em>Participant identification methods</em></strong></td>
+            <td><tr:goLink destination="http://www.ebi.ac.uk/ontology-lookup/browse.do?ontName=MI&amp;termId=MI%3A0002&amp;termName=participant%20identification%20method" targetFrame="_blank">PSI-MI</tr:goLink></td>
+            <td><tr:goLink destination="http://www.ebi.ac.uk/ontology-lookup/browse.do?ontName=PAR&amp;termId=PAR%3A0002&amp;termName=participant%20detection" targetFrame="_blank">PSI-PAR</tr:goLink></td>
+        </tr>
+        <tr>
+            <td><strong><em>Participant's experimental role</em></strong></td>
+            <td><tr:goLink destination="http://www.ebi.ac.uk/ontology-lookup/browse.do?ontName=MI&amp;termId=MI%3A0495&amp;termName=experimental%20role" targetFrame="_blank">PSI-MI</tr:goLink></td>
+            <td><tr:goLink destination="http://www.ebi.ac.uk/ontology-lookup/browse.do?ontName=PAR&amp;termId=PAR%3A0495&amp;termName=experimental%20role" targetFrame="_blank">PSI-PAR</tr:goLink></td>
+        </tr>
+        <tr>
+            <td><strong><em>Participant's biological role</em></strong></td>
+            <td><tr:goLink destination="http://www.ebi.ac.uk/ontology-lookup/browse.do?ontName=MI&amp;termId=MI%3A0500&amp;termName=biological%20role" targetFrame="_blank">PSI-MI</tr:goLink></td>
+            <td><tr:goLink destination="http://www.ebi.ac.uk/ontology-lookup/browse.do?ontName=PAR&amp;termId=PAR%3A0500&amp;termName=biological%20role" targetFrame="_blank">PSI-PAR</tr:goLink></td>
+        </tr>
+        <tr>
+            <td><strong><em>Participant's Feature detection method</em></strong></td>
+            <td><tr:goLink destination="http://www.ebi.ac.uk/ontology-lookup/browse.do?ontName=MI&amp;termId=MI%3A0003&amp;termName=feature%20detection%20dethod" targetFrame="_blank">PSI-MI</tr:goLink></td>
+            <td><tr:goLink destination="http://www.ebi.ac.uk/ontology-lookup/browse.do?ontName=PAR&amp;termId=PAR%3A0003&amp;termName=feature%20detection" targetFrame="_blank">PSI-PAR</tr:goLink></td>
+        </tr>
+        <tr>
+            <td><strong><em>Participant's feature type</em></strong></td>
+            <td><tr:goLink destination="http://www.ebi.ac.uk/ontology-lookup/browse.do?ontName=MI&amp;termId=MI%3A0116&amp;termName=feature%20type" targetFrame="_blank"> PSI-MI </tr:goLink>
+                or
+                <tr:goLink destination="http://www.ebi.ac.uk/ontology-lookup/browse.do?ontName=MOD&amp;termId=MOD%3A00000&amp;termName=protein%20modification" targetFrame="_blank"> PSI-MOD</tr:goLink></td>
+            <td><tr:goLink destination="http://www.ebi.ac.uk/ontology-lookup/browse.do?ontName=PAR&amp;termId=PAR%3A0116&amp;termName=feature%20type" targetFrame="_blank">PSI-PAR</tr:goLink>
+                or
+                <tr:goLink destination="http://www.ebi.ac.uk/ontology-lookup/browse.do?ontName=MOD&amp;termId=MOD%3A00000&amp;termName=protein%20modification" targetFrame="_blank"> PSI-MOD</tr:goLink></td>
+        </tr>
+        <tr>
+            <td><strong><em>Interactor's type</em></strong></td>
+            <td><tr:goLink destination="http://www.ebi.ac.uk/ontology-lookup/browse.do?ontName=MI&amp;termId=MI%3A0313&amp;termName=interactor%20type" targetFrame="_blank">PSI-MI</tr:goLink></td>
+            <td><tr:goLink destination="http://www.ebi.ac.uk/ontology-lookup/browse.do?ontName=PAR&amp;termId=PAR%3A0313&amp;termName=interactor%20type" targetFrame="_blank">PSI-PAR</tr:goLink></td>
+        </tr>
+        <tr>
+            <td><strong><em>Participant's feature range status</em></strong></td>
+            <td><tr:goLink destination="http://www.ebi.ac.uk/ontology-lookup/browse.do?ontName=MI&amp;termId=MI%3A0333&amp;termName=feature%20range%20status" targetFrame="_blank">PSI-MI</tr:goLink></td>
+            <td><tr:goLink destination="http://www.ebi.ac.uk/ontology-lookup/browse.do?ontName=PAR&amp;termId=PAR%3A0333&amp;termName=feature%20range%20status" targetFrame="_blank">PSI-PAR</tr:goLink></td>
+        </tr>
+        <tr>
+            <td><strong><em>Participant's experimental preparation</em></strong></td>
+            <td><tr:goLink destination="http://www.ebi.ac.uk/ontology-lookup/browse.do?ontName=MI&amp;termId=MI%3A0346&amp;termName=experimental%20preparation" targetFrame="_blank">PSI-MI</tr:goLink></td>
+            <td><tr:goLink destination="http://www.ebi.ac.uk/ontology-lookup/browse.do?ontName=PAR&amp;termId=PAR%3A0346&amp;termName=experimental%20preparation" targetFrame="_blank">PSI-PAR</tr:goLink></td>
+        </tr>
+    </table>
+    <br/>
+</section>
+<section class="grid_18">
+    <a name ="psi-mi"/>
+    <h2>PSI-MI basic checks</h2>
+
+    <p>This scope includes a few basic rules which are not specified in MIMIx or IMEx but are important for the consitency of the file.
+        It checks the consistency of the database cross references using the PSI-MI ontology, the consistency of the participant's features as it is specified in the PSI-XML 2.5 documentation and the interactor sequences
+        (only for DNA, RNA or protein sequences)</p>
+
+
+    <h3>Description of the rules executed with the scope 'PSI-MI'</h3>
+
+    <h:dataTable var="psiMiRules" value="#{helpController.psiMiRules}" cellspacing="0" cellpadding="0">
+        <h:column>
+            <h:outputText value="#{psiMiRules.scope}"/>
+        </h:column>
+        <h:column>
+            <h:outputText value="#{psiMiRules.name}"/>
+        </h:column>
+        <h:column>
+            <h:outputText value="#{psiMiRules.description}"/>
+        </h:column>
+    </h:dataTable>
+</section>
+<section class="grid_18">
+    <a name ="mimix"/>
+    <h2>MIMIx guidelines</h2>
+
+    <p>This checks that the Minimum Information required for reporting a Molecular Interaction eXperiment (<tr:goLink destination="http://www.psidev.info/index.php?q=node/278" targetFrame="_blank">MIMIx</tr:goLink>) are respected.</p>
+
+    <h3>Description of the rules executed with the scope 'MIMIx'</h3>
+
+    <h:dataTable var="mimixRules" value="#{helpController.mimixRules}" cellspacing="0" cellpadding="0">
+        <h:column>
+            <h:outputText value="#{mimixRules.scope}"/>
+        </h:column>
+        <h:column>
+            <h:outputText value="#{mimixRules.name}"/>
+        </h:column>
+        <h:column>
+            <h:outputText value="#{mimixRules.description}"/>
+        </h:column>
+    </h:dataTable>
+</section>
+<section class="grid_18">
+    <a name ="imex"/>
+    <h2>IMEx Curation standards</h2>
+
+    <p>This ensures that the curation standards agreed by the  International Molecular Exchange Consortium (<tr:goLink destination="http://imex.sourceforge.net/" targetFrame="_blank">IMEx</tr:goLink>) are respected.
+    </p>
+    <p>
+        The curation manual can be accessed <tr:goLink destination="http://imex.sourceforge.net/doc/imex-curationManual.doc" targetFrame="_blank"> here</tr:goLink>.
+    </p>
+
+    <h3>Description of the rules executed with the scope 'IMEx'</h3>
+    <h:dataTable var="imexRules" value="#{helpController.imexRules}" cellspacing="0" cellpadding="0">
+        <h:column>
+            <h:outputText value="#{imexRules.scope}"/>
+        </h:column>
+        <h:column>
+            <h:outputText value="#{imexRules.name}"/>
+        </h:column>
+        <h:column>
+            <h:outputText value="#{imexRules.description}"/>
+        </h:column>
+    </h:dataTable>
+    <h3>Dependency details</h3>
+
+    <p>Some of the rules for IMEx are checking dependencies between two controlled-vocabulary terms.
+
+        <ul>
+            <li><tr:outputText value="Interaction detection method and interaction type"/></li>
+            <li><tr:outputText value="Interaction detection method and participant's biological role"/></li>
+            <li><tr:outputText value="Interaction detection method and participant's experimental role"/></li>
+            <li><tr:outputText value="Interaction detection method and participant identification method"/></li>
+            <li><tr:outputText value="Database cross reference and reference qualifier"/></li>
+            <li><tr:outputText value="Feature type and feature detection method"/></li>
+            <li><tr:outputText value="Feature type and feature range status"/></li>
+        </ul>
+    </p>
+
+    <p>The documentation describing these dependencies is available
+        <tr:goLink destination="https://github.com/MICommunity/PSI-MI-Validator/blob/master/psimi-schema-validator/documentation/dependency_rules.pdf" targetFrame="_blank">
+            <tr:outputText value="Here"/>
+        </tr:goLink>
+    </p>
+</section>
+
+<section class="grid_18">
+    <a name ="customized"/>
+    <h2>Customized rules</h2>
+
+    <p>This scope allows the selection of the object rules among the PSI-MI, MIMIx and IMEx rules which will be used for validating the file.</p>
+
+    <h3>List of rules which can be selected with the scope 'customized rules'</h3>
+
+    <h:dataTable var="psiMiRules" value="#{helpController.psiMiRules}" cellspacing="0" cellpadding="0" >
+        <h:column>
+            <h:outputText value="#{psiMiRules.scope}"/>
+        </h:column>
+        <h:column>
+            <h:outputText value="#{psiMiRules.name}"/>
+        </h:column>
+        <h:column>
+            <h:outputText value="#{psiMiRules.description}"/>
+        </h:column>
+    </h:dataTable>
+
+    <br/>
+
+    <h:dataTable var="mimixRules" value="#{helpController.mimixRulesOnly}" cellspacing="0" cellpadding="0">
+        <h:column>
+            <h:outputText value="#{mimixRules.scope}"/>
+        </h:column>
+        <h:column>
+            <h:outputText value="#{mimixRules.name}"/>
+        </h:column>
+        <h:column>
+            <h:outputText value="#{mimixRules.description}"/>
+        </h:column>
+    </h:dataTable>
+
+    <br/>
+
+    <h:dataTable var="imexRules" value="#{helpController.imexRulesOnly}" cellspacing="0" cellpadding="0">
+        <h:column>
+            <h:outputText value="#{imexRules.scope}"/>
+        </h:column>
+        <h:column>
+            <h:outputText value="#{imexRules.name}"/>
+        </h:column>
+        <h:column>
+            <h:outputText value="#{imexRules.description}"/>
+        </h:column>
+    </h:dataTable>
+</section>
+</section>
+
+<div class="grid_6 omega shortcuts submenu">
+    <div class="panels-flexible-region panels-flexible-region-news-siderbar ">
+        <div class="panel-pane pane-block pane-menu-block-3 clearfix">
+            <h3 class="pane-title">Help</h3>
+
+            <div class="menu-block-wrapper menu-block-3 menu-name-main-menu parent-mlid-0 menu-level-3">
+                <ul id="help-nav" class="menu">
+                    <li class="first leaf menu-mlid-3528 menu-press-releases mid-3528"><a href="help.xhtml#intro">PSI-MI and PSI-PAR validation</a></li>
+                    <li class="leaf menu-mlid-3528 menu-press-releases mid-3528"><a href="help.xhtml#scopes">Validation scopes</a></li>
+                    <li class="leaf menu-mlid-3528 menu-press-releases mid-3528"><a href="help.xhtml#syntax">File syntax</a></li>
+                    <li class="leaf menu-mlid-3528 menu-press-releases mid-3528"><a href="help.xhtml#controlled_vocabulary">PSI-MI controlled vocabulary</a></li>
+                    <li class="leaf menu-mlid-3528 menu-press-releases mid-3528"><a href="help.xhtml#psi-mi">PSI-MI basic object rules</a></li>
+                    <li class="leaf menu-mlid-3528 menu-press-releases mid-3528"><a href="help.xhtml#mimix">MIMIx rules</a></li>
+                    <li class="leaf menu-mlid-3528 menu-press-releases mid-3528"><a href="help.xhtml#imex">IMEx rules</a></li>
+                    <li class="last menu-mlid-3528 menu-press-releases mid-3528"><a href="help.xhtml#customized">Customized rules</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+</ui:define>
+</ui:composition>

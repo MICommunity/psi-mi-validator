@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+                           http://www.springframework.org/schema/context
+                           http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+    <context:component-scan base-package="uk.ac.ebi.intact.services.validator"/>
+
+    <context:property-placeholder location="classpath:/ValidatorConfig.properties"/>
+    <context:property-placeholder location="classpath:/validator/BuildInfo.properties"/>
+
+    <bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>
+
+    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="host" value="smtp.ebi.ac.uk"/>
+        <property name="port" value="25"/>
+        <property name="username" value="default.user@gmail.com"/>
+        <property name="javaMailProperties">
+            <props>
+                <prop key="mail.smtp.starttls.enable">true</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="validatorConfig" class="uk.ac.ebi.intact.services.validator.ValidatorConfig">
+        <property name="notificationEmails" value="${notify}"/>
+    </bean>
+
+</beans>

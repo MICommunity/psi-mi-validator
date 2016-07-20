@@ -26,7 +26,7 @@ public class TaxIdHostOrganismRule extends AbstractMIRule<Organism> {
         // describe the rule.
         setName( "TaxId Organism Check" );
         setDescription( "Checks that each organism has a valid NCBI taxid" );
-        addTip( "Search http://www.ebi.ac.uk/newt/display with an organism name to retrieve its taxid" );
+        addTip( "Search http://www.ncbi.nlm.nih.gov/taxonomy with an organism name to retrieve its taxid" );
         addTip( "By convention, the taxid for 'in vitro' is -1" );
         addTip( "By convention, the taxid for 'chemical synthesis' is -2" );
         //addTip( "By convention, the taxid for 'unknown' is -3" );

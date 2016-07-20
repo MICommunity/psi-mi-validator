@@ -1,0 +1,76 @@
+.errorContext {
+    display: block;
+    padding-bottom: 10px;
+}
+
+.errorContext a {
+    display: block;
+}
+
+.errorContextDetails {
+    display: none;
+}
+
+.unSelectAllRules {
+    display: none;
+}
+
+.selectAllPsimiRules {
+    halign: right;
+    float: right;
+}
+.unSelectAllPsimiRules {
+    float: right;
+    halign: right;
+}
+
+.selectAllMimixRules {
+    halign: right;
+}
+.unSelectAllMimixRules {
+    halign: right;
+}
+
+.selectAllImexRules {
+    halign: right;
+}
+.unSelectAllImexRules {
+    halign: right;
+}
+
+#ebiForm table, #ebiForm td, #ebiForm th {
+    border-style: none;
+    background-color: #f7f7f7;
+}
+
+#ebiForm2 table, #ebiForm2 td, #ebiForm2 th {
+    border-style: none;
+}
+
+#ebiForm2 table.af_table_content {
+    background-color: white;
+    border: 5px solid #f1f1f1;
+    border-collapse: collapse;
+    margin: 9px auto;
+    width: 99%;
+}
+
+#ebiForm2 td.af_column_cell-text, #ebiForm2 th.af_column_cell-text {
+    border: 1px solid #f1f1f1;
+    border-collapse: collapse;
+    padding: 8px 5px 5px;
+    vertical-align: top;
+}
+
+#ebiForm2 div.af_panelFormLayout{
+    float:left;
+}
+
+#ebiForm2 div.af_panelFormLayout table, #ebiForm2 div.af_panelFormLayout tr, #ebiForm2 div.af_panelFormLayout td{
+    background-color: #EDF6F5;
+}
+
+th.af_column_header-text{
+    background-color: #57A7A7;
+}
+

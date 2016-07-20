@@ -30,7 +30,7 @@ public class ExperimentHostOrganismRule extends MiExperimentRule {
         // describe the rule.
         setName( "Experiment Host Organism Check" );
         setDescription( "Checks that each experiment has a host organism." );
-        addTip( "Search http://www.ebi.ac.uk/newt/display with an organism name to retrieve its taxid" );
+        addTip( "Search http://www.ncbi.nlm.nih.gov/taxonomy with an organism name to retrieve its taxid" );
         addTip( "By convention, the taxid for 'in vitro' is -1" );
         addTip( "By convention, the taxid for 'chemical synthesis' is -2" );
         addTip( "By convention, the taxid for 'unknown' is -3" );

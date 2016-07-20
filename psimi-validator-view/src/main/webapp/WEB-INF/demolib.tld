@@ -1,0 +1,26 @@
+<!-- This file is optional, but helps to autocomplete the custom tags with the IDE -->
+<taglib xmlns="http://java.sun.com/JSP/TagLibraryDescriptor">
+    <tlib-version>1.0</tlib-version>
+    <jsp-version>1.2</jsp-version>
+    <short-name>ebi</short-name>
+    <uri>http://ebi.ac.uk/demolib</uri>
+    <display-name>Example facelets component library</display-name>
+    <description>
+        Example library
+    </description>
+
+    <tag>
+        <name>searchBox</name>
+        <attribute>
+            <name>id</name>
+            <required>true</required>
+        </attribute>
+        <attribute>
+            <name>value</name>
+            <required>true</required>
+        </attribute>
+        <attribute>
+            <name>title</name>
+        </attribute>
+    </tag>
+</taglib>

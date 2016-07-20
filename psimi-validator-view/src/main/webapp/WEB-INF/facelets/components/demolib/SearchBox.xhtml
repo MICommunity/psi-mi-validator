@@ -1,0 +1,44 @@
+<ui:composition
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:tr="http://myfaces.apache.org/trinidad"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:c="http://java.sun.com/jstl/core"
+        xmlns:ebisf="http://www.ebi.ac.uk/faces/site"
+        xmlns:ebi="http://ebi.ac.uk/faces/components">
+
+    <ui:component>
+
+        <c:set var="id" value="#{id}"/>
+
+        <ebi:panelBox id="#{id}_searchBox" title="Search #{title}">
+
+            <script type="text/javascript">
+                function ebijsf_${id}_clearAndFocusField(id)
+                {
+                    var elem = document.getElementById(id);
+                    elem.value = '';
+                    elem.focus();
+                }
+            </script>
+
+            <h:inputText id="searchQuery"
+                         styleClass="contentsarea"
+                         value="#{value}"
+                         size="#{ebisf:isBrowserExplorer()? '14' : '12'}"/>
+
+            <h:panelGrid columns="2">
+                <tr:commandButton id="#{id}" styleClass="submit_button"
+                                   text="Search it"
+                                   actionListener="#{searchBean.doSearch}"
+                                   action="results">
+                </tr:commandButton>
+
+                <a href="#" onclick="ebijsf_${id}_clearAndFocusField('searchQuery')">Clear</a>
+            </h:panelGrid>
+
+        </ebi:panelBox>
+
+    </ui:component>
+
+</ui:composition>

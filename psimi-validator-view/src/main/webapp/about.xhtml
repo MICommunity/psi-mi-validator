@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:tr="http://myfaces.apache.org/trinidad"
+        xmlns:trh="http://myfaces.apache.org/trinidad/html"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:c="http://java.sun.com/jstl/core"
+        xmlns:ebi="http://ebi.ac.uk/faces/components"
+
+        template="/WEB-INF/facelets/layout/compliance-template-ebi.xhtml">
+
+    <!-- Mandatorty params -->
+    <ui:param name="sectionTitle" value="About Validator"/>
+
+    <ui:define name="windowTitle">
+        <tr:outputText value="About Validator"/>
+    </ui:define>
+
+    <ui:define name="content">
+
+        <h:messages id="allMessages" style="color:red;margin:8px;" />
+
+        <!-- Description -->
+        <section class = "grid_24">
+            <div class="grid_24 alpha">
+                <section class="grid_12">
+                    <h3>Local Installation</h3>
+
+                    <p>
+                        The PSI-MI validator can be <h:outputLink value="local_installation.xhtml"> installed locally </h:outputLink>
+                        if the files to validate are too large for the web application. It can also be useful for running batch jobs validating
+                        many files in a row.
+                    </p>
+                </section>
+                <section class="grid_12">
+                    <h3>Write your own validator</h3>
+
+                    <p>
+                        The validator framework can be extended/customized to handle semantic validation adapted to your use cases.
+                        Please visit our <tr:goLink destination="http://www.psidev.info/index.php?q=node/336" targetFrame="_blank">
+                        <tr:outputText value=" online tutorial "/>
+                    </tr:goLink> for more information and examples.
+
+                    </p>
+                </section>
+                <section class="grid_12">
+                    <h3>MIMIx documentation</h3>
+
+                    <p>
+
+                        The Minimum Information about a Molecular Interaction eXperiment (MIMIx) is a community guideline advising
+                        the user on how to fully describe a molecular interaction experiment and which information it is important to capture. More information bout MIMIx can
+                        be found
+                        <tr:goLink destination="http://www.psidev.info/index.php?q=node/278" targetFrame="_blank">
+                        <tr:outputText value=" Here "/>
+                    </tr:goLink>
+                    </p>
+                </section>
+                <section class="grid_12">
+                    <h3>IMEx Website</h3>
+
+                    <p>
+                        The IMEx consortium is an international collaboration between a group of major public interaction data providers who have agreed to share curation effort.
+                        More information about IMEx and the IMEx curation rules can be found
+                        <tr:goLink destination="http://www.imexconsortium.org/" targetFrame="_blank">
+                            <tr:outputText value=" Here "/>
+                        </tr:goLink>
+                    </p>
+                </section>
+                <section class="grid_24 publication">
+                    <h3>Citing #{ebiTest['webapp.name']}</h3>
+
+                    <p>
+                        <strong>The PSI semantic validator: A framework to check MIAPE compliance of proteomics data</strong>
+                        Luisa Montecchi-Palazzi et al [doi: 10.1002/pmic.200900189.]
+                        <br/>
+                        <span style="font-style: italic">Proteomics. (2009)</span>
+                        <br/>
+                        <a href="http://onlinelibrary.wiley.com/doi/10.1002/pmic.200900189/abstract" target="_blank">[Abstract]</a>
+                        <a href="http://onlinelibrary.wiley.com/doi/10.1002/pmic.200900189/full" target="_blank">[Full Text]</a>
+                    </p>
+                </section>
+            </div>
+        </section>
+
+    </ui:define>
+</ui:composition>

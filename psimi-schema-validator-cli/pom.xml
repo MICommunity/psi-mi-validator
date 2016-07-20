@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
         <groupId>psidev.psi.mi</groupId>
         <artifactId>validator</artifactId>
-        <version>1.8.6-SNAPSHOT</version>
+        <version>3.1.0</version>
     </parent>
 
-    <groupId>psidev.psi.mi</groupId>
     <artifactId>psimi-schema-validator-cli</artifactId>
-    <version>3.0.2-SNAPSHOT</version>
-
     <name>PSI :: Schema Validator CLI :: PSI-MI Extension</name>
 
     <properties>
@@ -20,16 +16,49 @@
         <level>INFO</level>
     </properties>
 
-    <scm>
-        <connection>scm:svn:https://psimi.googlecode.com/svn/trunk/validator/psimi-schema-validator-cli/</connection>
-        <developerConnection>scm:svn:https://psimi.googlecode.com/svn/trunk/validator/psimi-schema-validator-cli/</developerConnection>
-        <url>http://code.google.com/p/psimi/source/browse/trunk/validator/psimi-schema-validator-cli</url>
-    </scm>
+    <build>
+        <plugins>
+            <!--Avoid deployment of the application in nexus -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+            <!--Avoid installation of the application locally -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.7</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
     <profiles>
         <profile>
+            <id>disable-java8-doclint</id>
+            <activation>
+                <jdk>[1.8,)</jdk>
+            </activation>
+            <properties>
+                <additionalparam>-Xdoclint:none</additionalparam>
+            </properties>
+        </profile>
+        <profile>
             <id>validate</id>
-
             <build>
                 <plugins>
                     <plugin>
@@ -70,23 +99,13 @@
         <dependency>
             <groupId>psidev.psi.mi</groupId>
             <artifactId>psimi-schema-validator</artifactId>
-            <version>${pom.version}</version>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.10</version>
-            <scope>test</scope>
         </dependency>
     </dependencies>
-
-    <repositories>
-        <repository>
-            <id>intact.nexus</id>
-            <name>IntAct Nexus</name>
-            <url>http://www.ebi.ac.uk/intact/maven/nexus/content/groups/public</url>
-        </repository>
-    </repositories>
 
 </project>

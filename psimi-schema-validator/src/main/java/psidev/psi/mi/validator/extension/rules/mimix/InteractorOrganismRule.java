@@ -29,7 +29,7 @@ public class InteractorOrganismRule extends AbstractMIRule<Interactor> {
         // describe the rule.
         setName( "Interactor Organism Check" );
         setDescription( "Checks that each protein and gene has an organism." );
-        addTip( "Search http://www.ebi.ac.uk/newt/display with an organism name to retrieve its taxid" );
+        addTip( "Search http://www.ncbi.nlm.nih.gov/taxonomy with an organism name to retrieve its taxid" );
         addTip( "By convention, the taxid for 'in vitro' is -1" );
         addTip( "By convention, the taxid for 'chemical synthesis' is -2" );
         addTip( "By convention, the taxid for 'unknown' is -3" );

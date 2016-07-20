@@ -15,12 +15,12 @@ import psidev.psi.tools.ontology_manager.interfaces.OntologyTermI;
 import psidev.psi.tools.validator.MessageLevel;
 import psidev.psi.tools.validator.ValidatorException;
 import psidev.psi.tools.validator.ValidatorMessage;
-import uk.ac.ebi.ols.soap.Query;
-import uk.ac.ebi.ols.soap.QueryServiceLocator;
+import uk.ac.ebi.pride.utilities.ols.web.service.client.OLSClient;
+import uk.ac.ebi.pride.utilities.ols.web.service.config.OLSWsConfigProd;
+import uk.ac.ebi.pride.utilities.ols.web.service.model.Identifier;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.rmi.RemoteException;
 import java.util.*;
 import java.util.regex.Pattern;
 
@@ -87,9 +87,9 @@ public class DatabaseAccessionRule extends AbstractMIRule<Xref> {
 
 
     /**
-     * The OLS query interface
+     * The OLS olsClient interface
      */
-    private Query query;
+    private OLSClient olsClient;
 
     /**
      * MI ontology name
@@ -116,14 +116,13 @@ public class DatabaseAccessionRule extends AbstractMIRule<Xref> {
         // describe the rule.
         setName( "Database cross reference Check" );
         setDescription( "Checks that the each database cross reference is using a valid database accession which matches the regular expression of the database." );
-        addTip( "You can find all the regular expressions matching each database at http://www.ebi.ac.uk/ontology-lookup/browse.do?ontName=MI&termId=MI%3A0444&termName=database%20citation" );
+        addTip( "You can find all the regular expressions matching each database at http://www.ebi.ac.uk/ols/ontologies/mi/terms?iri=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FMI_0000" );
 
         // setting up OLS client
         try {
-            QueryServiceLocator locator = new QueryServiceLocator();
-            query = locator.getOntologyQuery();
+            olsClient = new OLSClient(new OLSWsConfigProd());
         } catch ( Exception e ) {
-            log.error( "Exception setting up OLS query client! The database cross reference check will not be effective.", e );
+            log.error( "Exception setting up OLS olsClient client! The database cross reference check will not be effective.", e );
         }
     }
 
@@ -135,30 +134,18 @@ public class DatabaseAccessionRule extends AbstractMIRule<Xref> {
     private Pattern getTermXRefUncached(String termAccession){
         if (termAccession == null) { return null; }
         final Map metadata;
-        try {
-            metadata = query.getTermXrefs( termAccession, ontologyId );
-            if (metadata != null){
-                for ( Object k : metadata.keySet() ) {
-                    final String key = (String) k;
-                    // That's the only way OLS provides cross references, all keys are different so we are fishing out keywords :(
-                    if( key != null && key.contains( "xref_analog" )) {
-                        String value = (String) metadata.get( k );
-                        if( value != null ) {
-                            String regularExpression = extractRegularExpressionFromOLS(value);
-
-                            if (regularExpression != null){
-                                return Pattern.compile(regularExpression);
-                            }
-                        }
+        Identifier identifier = new Identifier(termAccession, Identifier.IdentifierType.OBO);
+        metadata = olsClient.getTermXrefs( identifier, ontologyId );
+        if (metadata != null){
+            for ( Object k : metadata.keySet() ) {
+                final String key = (String) k;
+                // That's the only way OLS provides cross references, all keys are different so we are fishing out keywords :(
+                if( key != null && key.contains( "id-validation-regexp" )) {
+                    String regularExpression = (String) metadata.get( k );
+                    if( regularExpression != null ) {
+                        return Pattern.compile(regularExpression);
                     }
                 }
-            }
-
-            return null;
-
-        } catch ( RemoteException e ) {
-            if ( log.isWarnEnabled() ) {
-                log.warn( "Error while loading term synonyms from OLS for term: " + termAccession, e );
             }
         }
 
@@ -235,7 +222,7 @@ public class DatabaseAccessionRule extends AbstractMIRule<Xref> {
     private Pattern getDatabaseRegularExpression( OntologyTermI term ){
         if (term == null) { return null;}
 
-        // create a unique string for this query
+        // create a unique string for this olsClient
         // generate from from method specific ID, the ontology ID and the input parameter
         final String myKey = ontologyId + '_' + term.getTermAccession();
 
