@@ -5,6 +5,6 @@
     <cvSource source="file" uri="${psimi.obo.url}" format="OBO" name="PSI-MI"  identifier="MI"  version="2.5"/>
     <cvSource source="file" uri="${psimod.obo.url}" format="OBO" name="PSI-MOD" identifier="MOD" version="1.x"/>
     <cvSource source="OLS" uri="" format="OBO" name="Gene Ontology" identifier="GO" version="latest in OLS"/>
-    <cvSource source="OLS" uri="" format="OBO" name="Newt Taxonomy" identifier="NEWT" version="latest in OLS"/>
+    <cvSource source="OLS" uri="" format="OBO" name="NCBI organismal classification" identifier="NCBITaxon" version="latest in OLS"/>
 
 </cvSourceList>
