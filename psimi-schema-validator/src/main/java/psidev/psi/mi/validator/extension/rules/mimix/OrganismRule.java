@@ -10,7 +10,7 @@ import psidev.psi.tools.validator.ValidatorMessage;
 import java.util.Collection;
 
 /**
- * <b> check every experiment host organism has an attribute taxid and that is is defined in NEWT. </b>.
+ * <b> check every experiment host organism has an attribute taxid and that is is defined in NCBI. </b>.
  * <p/>
  *
  * @author Samuel Kerrien (skerrien@ebi.ac.uk)

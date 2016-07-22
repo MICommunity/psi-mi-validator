@@ -25,7 +25,6 @@ import psidev.psi.tools.validator.MessageLevel;
 import psidev.psi.tools.validator.ValidatorMessage;
 import psidev.psi.tools.validator.rules.Rule;
 
-import java.rmi.RemoteException;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -166,7 +165,7 @@ public final class RuleUtils {
         int taxId = organism.getTaxId();
         switch ( taxId ) {
 
-            // special cases in PSI-MI that do not exist in NEWT
+            // special cases in PSI-MI that do not exist in NCBITaxon
             case -5:
                 break;
             case -4:
@@ -183,7 +182,7 @@ public final class RuleUtils {
                 // this is the root of newt, which users are not suppose to use to define their host organism
                 return Collections.singleton( new ValidatorMessage( objectType + " with an invalid " + organismType +
                         " for which the taxid was: '" + taxId +
-                        "'. Please choose a child term of the NEWT root.",
+                        "'. Please choose a child term of the NCBITaxon root.",
                         MessageLevel.ERROR,
                         context,
                         rule ) );
@@ -193,13 +192,13 @@ public final class RuleUtils {
                 // this is the root of newt, which users are not suppose to use to define their host organism
                 return Collections.singleton(( new ValidatorMessage( objectType + " with an invalid " + organismType +
                         " for which the taxid was: '" + taxId +
-                        "'. Please choose a valid NEWT term.",
+                        "'. Please choose a valid NCBITaxon term.",
                         MessageLevel.ERROR,
                         context,
                         rule ) ));
 
             default:
-                // check in NEWT if the taxid exists
+                // check in NCBITaxon if the taxid exists
                 if ( taxId < 0 ) {
                     context = RuleUtils.buildContext(organism, "organism");
                     // break here
@@ -220,7 +219,7 @@ public final class RuleUtils {
                         // could not find it
                         context = RuleUtils.buildContext(organism, "organism");
                         final String msg = objectType + " with an invalid " + organismType + ", the taxid given was '" +
-                                taxId + "' which cannot be found in NEWT.";
+                                taxId + "' which cannot be found in NCBITaxon.";
                         return Collections.singleton(( new ValidatorMessage( msg,
                                 MessageLevel.ERROR,
                                 context,
