@@ -14,9 +14,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring.version>3.2.9.RELEASE</spring.version>
         <jami.version>3.0.1</jami.version>
-        <!--Maybe subtitute with psidev.psi.tool.version if we put them together-->
-        <ontology.manager.version>2.0.6</ontology.manager.version>
-    </properties>
+        <psidev.psi.tool.version>2.0.7</psidev.psi.tool.version>
+</properties>
 
     <scm>
         <connection>scm:git:https://github.com/MICommunity/psi-mi-validator.git</connection>
