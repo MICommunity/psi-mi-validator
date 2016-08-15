@@ -59,7 +59,7 @@ public class InteractionDetectionMethod2ExperimentRoleDependencyRule extends Abs
         // describe the rule.
         setName( "Dependency Check : Interaction detection method and participant's experimental role" );
         setDescription( "Checks that each association interaction detection method - participant's experimental role is valid and respects IMEx curation rules" );
-        addTip( "Search the possible terms for interaction detection method and experimental role on http://www.ebi.ac.uk/ontology-lookup/browse.do?ontName=MI" );
+        addTip( "Search the possible terms for interaction detection method and experimental role on http://www.ebi.ac.uk/ols/ontologies/mi" );
         addTip( "Look at the file https://github.com/MICommunity/PSI-MI-Validator/blob/master/psimi-schema-validator/src/main/resources/InteractionDetectionMethod2ExperimentRole.tsv for the possible dependencies interaction detection method - experimental role" );
     }
 

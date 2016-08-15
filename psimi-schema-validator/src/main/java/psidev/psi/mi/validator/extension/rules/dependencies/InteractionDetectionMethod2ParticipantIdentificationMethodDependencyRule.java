@@ -39,7 +39,7 @@ public class InteractionDetectionMethod2ParticipantIdentificationMethodDependenc
 
         OntologyAccess mi = ontologyManager.getOntologyAccess( "MI" );
         String fileName = validatorContext.getValidatorConfig().getInteractionDetectionMethod2ParticipantIdentificationMethod();
-        
+
             try {
 
                 URL resource = InteractionDetectionMethod2ParticipantIdentificationMethodDependencyRule.class
@@ -56,7 +56,7 @@ public class InteractionDetectionMethod2ParticipantIdentificationMethodDependenc
             // describe the rule.
         setName( "Dependency Check : Interaction detection method and participant identification method" );
         setDescription( "Checks that each association interaction detection method - participant identification methods is valid and respects IMEx curation rules." );
-        addTip( "Search the possible terms for interaction detection method and participant identification method on http://www.ebi.ac.uk/ontology-lookup/browse.do?ontName=MI" );
+        addTip( "Search the possible terms for interaction detection method and participant identification method on http://www.ebi.ac.uk/ols/ontologies/mi" );
         addTip( "Look at the file https://github.com/MICommunity/PSI-MI-Validator/blob/master/psimi-schema-validator/src/main/resources/InteractionDetectionMethod2ParticipantIdentificationMethod.tsv for the possible dependencies interaction detection method - participant identification method" );
     }
 

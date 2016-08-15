@@ -3,7 +3,7 @@
                 xmlns:psi="net:sf:psidev:mi"
                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-    
+
 <!--
 @id: $Id: MIF25_view.xsl 5033 2006-06-13 00:41:16Z baranda $
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -11,7 +11,7 @@ This XSLT-Script was designed for generating HTML out of a PSI-MI-XML-File,
 which satisfies MIF.xsd.
 Its only a visualisation and does not show all details included in PSI !
 
-The implementation is highly recursive - a lot of templates are used at 
+The implementation is highly recursive - a lot of templates are used at
 different Levels.
 This XSLT-Script was developed and tested using SAXON 6.5.2.
 
@@ -55,7 +55,7 @@ Notes:
 <xsl:param name="newtUrl"
            select="'http://www.ebi.ac.uk/newt/display?search='"/>
 <xsl:param name="olsUrl"
-           select="'http://www.ebi.ac.uk/ontology-lookup/browse.do?ontName=MI&amp;termId='"/>
+           select="'http://www.ebi.ac.uk/ols/ontologies/mi/terms?obo_id='"/>
 
 <xsl:template match="psi:entrySet">
     <html>
@@ -389,7 +389,7 @@ Notes:
             <xsl:apply-templates select="/psi:entrySet/psi:entry/psi:experimentList/psi:experimentDescription[@id = current()/text()]"
                                  mode="ref">
                 <xsl:with-param name="label" select="'Experiment'"/>
-            </xsl:apply-templates>    
+            </xsl:apply-templates>
         </a>
     </td>
 </xsl:template>
@@ -412,13 +412,13 @@ Notes:
     <xsl:choose>
         <xsl:when test="psi:names/psi:shortLabel = ''">
             <xsl:value-of select="$label"/>
-            #<xsl:apply-templates select="@id"/>   
+            #<xsl:apply-templates select="@id"/>
         </xsl:when>
         <xsl:otherwise>
             <xsl:attribute name="title">
                 <xsl:apply-templates select="psi:names/psi:fullName/text()"/>
-            </xsl:attribute>            
-            <xsl:apply-templates select="psi:names/psi:shortLabel"/>      
+            </xsl:attribute>
+            <xsl:apply-templates select="psi:names/psi:shortLabel"/>
         </xsl:otherwise>
     </xsl:choose>
 </xsl:template>

@@ -68,7 +68,7 @@ public class InteractionCrossReference2CrossReferenceTypeDependencyRule extends 
         setName( "Dependency Check : Interaction Cross reference database and cross reference qualifier" );
         setDescription( "Checks that each association database - qualifier respects IMEx curetion rules. For example, for each feature, all the interpro" +
                 " cross references should have a qualifier 'identity'.");
-        addTip( "Search the possible terms for database cross reference and reference type on http://www.ebi.ac.uk/ontology-lookup/browse.do?ontName=MI" );
+        addTip( "Search the possible terms for database cross reference and reference type on http://www.ebi.ac.uk/ols/ontologies/mi" );
 //        addTip( "Look at the file http://psimi.googlecode.com/svn/trunk/validator/psimi-schema-validator/src/main/resources/interactionCrossReference2Location2CrossRefType.tsv for the possible dependencies cross reference database - qualifier" );
     }
 
