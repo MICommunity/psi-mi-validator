@@ -64,7 +64,7 @@ public class ChecksumSyntaxRule extends AbstractMIRule<Checksum> {
                     if (messages.isEmpty()){
                         messages = new ArrayList<ValidatorMessage>();
                     }
-                    messages.add( new ValidatorMessage( "The checksum method MI identifier "+method.getMIIdentifier()+"  does not exist in the PSI-MI ontology. The valid MI terms for checksum methods are available here: http://www.ebi.ac.uk/ontology-lookup/browse.do?ontName=MI&termId=MI%3A1212&termName=checksum",
+                    messages.add( new ValidatorMessage( "The checksum method MI identifier "+method.getMIIdentifier()+"  does not exist in the PSI-MI ontology. The valid MI terms for checksum methods are available here: http://www.ebi.ac.uk/ols/ontologies/mi/terms?obo_id=MI:1212",
                             MessageLevel.ERROR,
                             context,
                             this ) );
@@ -86,7 +86,7 @@ public class ChecksumSyntaxRule extends AbstractMIRule<Checksum> {
                         if (messages.isEmpty()){
                             messages = new ArrayList<ValidatorMessage>();
                         }
-                        messages.add( new ValidatorMessage( "The MI identifier "+method.getMIIdentifier()+" is not a valid MI identifier for checksum methods. The valid MI terms for checksum methods are available here: http://www.ebi.ac.uk/ontology-lookup/browse.do?ontName=MI&termId=MI%3A1212&termName=checksum",
+                        messages.add( new ValidatorMessage( "The MI identifier "+method.getMIIdentifier()+" is not a valid MI identifier for checksum methods. The valid MI terms for checksum methods are available here: http://www.ebi.ac.uk/ols/ontologies/mi/terms?obo_id=MI:1212",
                                 MessageLevel.ERROR,
                                 context,
                                 this ) );
