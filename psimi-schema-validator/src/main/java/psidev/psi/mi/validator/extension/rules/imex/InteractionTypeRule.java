@@ -34,7 +34,7 @@ public class InteractionTypeRule extends AbstractMIRule<InteractionEvidence>{
         setName("Interaction Type Check");
         setDescription("Checks that each interaction has at least one interaction type and all the interactions types should have " +
                 "a valid PSI MI cross reference.");
-        addTip( "See http://www.ebi.ac.uk/ols/ontologies/mi/terms?obo_id=MI:0190 for the existing interaction types" );
+        addTip( "See https://www.ebi.ac.uk/ols/ontologies/mi/terms?obo_id=MI:0190 for the existing interaction types" );
     }
 
     @Override

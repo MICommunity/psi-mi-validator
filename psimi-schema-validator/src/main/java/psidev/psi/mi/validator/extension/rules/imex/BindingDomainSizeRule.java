@@ -30,7 +30,7 @@ public class BindingDomainSizeRule extends AbstractMIRule<Feature> {
         setName("Binding domain Check");
         setDescription("Checks that each binding domain contains more than three amino acids. ");
         addTip("when the feature type is any children of binding site (MI:0117), the range should contain at least three amino acids, otherwise it is considered as a mutant.");
-        addTip( "Mutant accessions in the PSI-MI ontology can be found at http://www.ebi.ac.uk/ols/ontologies/mi/terms?obo_id=MI:0118");
+        addTip( "Mutant accessions in the PSI-MI ontology can be found at https://www.ebi.ac.uk/ols/ontologies/mi/terms?obo_id=MI:0118");
     }
 
     private long getMaxRangeLength(psidev.psi.mi.jami.model.Range range, boolean isStartDefined, boolean isEndDefined){

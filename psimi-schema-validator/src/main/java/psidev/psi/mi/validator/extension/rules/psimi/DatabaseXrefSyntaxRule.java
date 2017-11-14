@@ -80,7 +80,7 @@ public class DatabaseXrefSyntaxRule extends AbstractMIRule<Xref> {
                     if (messages.isEmpty()){
                         messages = new ArrayList<ValidatorMessage>();
                     }
-                    messages.add( new ValidatorMessage( "The database MI identifier "+database.getMIIdentifier()+"  does not exist in the PSI-MI ontology. The valid MI terms for databases are available here: http://www.ebi.ac.uk/ols/ontologies/mi/terms?obo_id=MI:0444",
+                    messages.add( new ValidatorMessage( "The database MI identifier "+database.getMIIdentifier()+"  does not exist in the PSI-MI ontology. The valid MI terms for databases are available here: https://www.ebi.ac.uk/ols/ontologies/mi/terms?obo_id=MI:0444",
                             MessageLevel.ERROR,
                             context,
                             this ) );
@@ -102,7 +102,7 @@ public class DatabaseXrefSyntaxRule extends AbstractMIRule<Xref> {
                         if (messages.isEmpty()){
                             messages = new ArrayList<ValidatorMessage>();
                         }
-                        messages.add( new ValidatorMessage( "The MI identifier "+database.getMIIdentifier()+" is not a valid MI identifier for databases. The valid MI terms for databases are available here: http://www.ebi.ac.uk/ols/ontologies/mi/terms?obo_id=MI:0444",
+                        messages.add( new ValidatorMessage( "The MI identifier "+database.getMIIdentifier()+" is not a valid MI identifier for databases. The valid MI terms for databases are available here: https://www.ebi.ac.uk/ols/ontologies/mi/terms?obo_id=MI:0444",
                                 MessageLevel.ERROR,
                                 context,
                                 this ) );
@@ -118,7 +118,7 @@ public class DatabaseXrefSyntaxRule extends AbstractMIRule<Xref> {
                     if (messages.isEmpty()){
                         messages = new ArrayList<ValidatorMessage>();
                     }
-                    messages.add( new ValidatorMessage( "The cross reference type MI identifier "+qualifier.getMIIdentifier()+"  does not exist in the PSI-MI ontology. The valid MI terms for cross reference types are available here: http://www.ebi.ac.uk/ols/ontologies/mi/terms?obo_id=MI:0353",
+                    messages.add( new ValidatorMessage( "The cross reference type MI identifier "+qualifier.getMIIdentifier()+"  does not exist in the PSI-MI ontology. The valid MI terms for cross reference types are available here: https://www.ebi.ac.uk/ols/ontologies/mi/terms?obo_id=MI:0353",
                             MessageLevel.ERROR,
                             context,
                             this ) );
@@ -140,7 +140,7 @@ public class DatabaseXrefSyntaxRule extends AbstractMIRule<Xref> {
                         if (messages.isEmpty()){
                             messages = new ArrayList<ValidatorMessage>();
                         }
-                        messages.add( new ValidatorMessage( "The MI identifier "+qualifier.getMIIdentifier()+" is not a valid MI identifier for cross reference types. The valid MI terms for cross reference types are available here: http://www.ebi.ac.uk/ols/ontologies/mi/terms?obo_id=MI:0353",
+                        messages.add( new ValidatorMessage( "The MI identifier "+qualifier.getMIIdentifier()+" is not a valid MI identifier for cross reference types. The valid MI terms for cross reference types are available here: https://www.ebi.ac.uk/ols/ontologies/mi/terms?obo_id=MI:0353",
                                 MessageLevel.ERROR,
                                 context,
                                 this ) );

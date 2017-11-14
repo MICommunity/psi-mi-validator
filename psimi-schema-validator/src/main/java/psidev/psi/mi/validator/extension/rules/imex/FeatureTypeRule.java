@@ -36,7 +36,7 @@ public class FeatureTypeRule extends AbstractMIRule<Feature> {
         setName("Participant's feature Type Check");
         setDescription("Checks that each participant's feature has a feature type with " +
                 "a valid PSI MI/PSI-MOD cross reference.");
-        addTip( "See http://www.ebi.ac.uk/ols/ontologies/mi/terms?obo_id=MI:0116 for the existing feature types" );
+        addTip( "See https://www.ebi.ac.uk/ols/ontologies/mi/terms?obo_id=MI:0116 for the existing feature types" );
     }
 
     @Override
@@ -67,7 +67,7 @@ public class FeatureTypeRule extends AbstractMIRule<Feature> {
                     if (messages.isEmpty()){
                         messages = new ArrayList<ValidatorMessage>();
                     }
-                    messages.add( new ValidatorMessage( "The feature type is not a valid MI term. The valid MI terms for alias types are available here: http://www.ebi.ac.uk/ols/ontologies/mi/terms?obo_id=MI:0116",
+                    messages.add( new ValidatorMessage( "The feature type is not a valid MI term. The valid MI terms for alias types are available here: https://www.ebi.ac.uk/ols/ontologies/mi/terms?obo_id=MI:0116",
                             MessageLevel.ERROR,
                             context,
                             this ) );
@@ -89,7 +89,7 @@ public class FeatureTypeRule extends AbstractMIRule<Feature> {
                         if (messages.isEmpty()){
                             messages = new ArrayList<ValidatorMessage>();
                         }
-                        messages.add( new ValidatorMessage( "The feature type is not a valid MI term. The valid MI terms for alias types are available here: http://www.ebi.ac.uk/ols/ontologies/mi/terms?obo_id=MI:0116",
+                        messages.add( new ValidatorMessage( "The feature type is not a valid MI term. The valid MI terms for alias types are available here: https://www.ebi.ac.uk/ols/ontologies/mi/terms?obo_id=MI:0116",
                                 MessageLevel.ERROR,
                                 context,
                                 this ) );
