@@ -4,7 +4,7 @@
 
     <groupId>psidev.psi.mi</groupId>
     <artifactId>validator</artifactId>
-    <version>3.1.2</version>
+    <version>3.1.3</version>
     <packaging>pom</packaging>
 
     <name>PSI :: Schema Validator</name>
@@ -13,8 +13,9 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring.version>3.2.9.RELEASE</spring.version>
-        <jami.version>3.0.1</jami.version>
-        <psidev.psi.tool.version>2.0.7</psidev.psi.tool.version>
+        <!--check if ols version is the same in both libraries-->
+        <jami.version>3.0.12</jami.version>
+        <psidev.psi.tool.version>2.0.9</psidev.psi.tool.version>
 </properties>
 
     <scm>
@@ -76,6 +77,8 @@
 
         <plugins>
             <plugin>
+                <!--mvn jgitflow:release-start -Dgit.user=xxxx -Dgit.password=xxxx-->
+                <!--mvn jgitflow:release-finish -Dmaven.javadoc.skip=true -Dgit.user=xxxx -Dgit.password=xxxx-->
                 <groupId>external.atlassian.jgitflow</groupId>
                 <artifactId>jgitflow-maven-plugin</artifactId>
                 <version>1.0-m5.1</version>
@@ -91,6 +94,14 @@
                     <!-- see goals wiki page for configuration options -->
                     <!--Whether to allow untracked files when checking if the working tree is clean.-->
                     <allowUntracked>true</allowUntracked>
+                    <noDeploy>true</noDeploy>
+                    <username>${git.user}</username>
+                    <password>${git.password}</password>
+                    <pullMaster>true</pullMaster>
+                    <pullDevelop>true</pullDevelop>
+                    <pushReleases>true</pushReleases>
+                    <pushHotfixes>true</pushHotfixes>
+                    <pushFeatures>true</pushFeatures>
                 </configuration>
             </plugin>
             <plugin>
@@ -163,16 +174,16 @@
 
     <repositories>
         <repository>
-            <id>nexus-ebi-repo-old</id>
-            <url>http://www.ebi.ac.uk/intact/maven/nexus/content/repositories/ebi-repo/</url>
-        </repository>
-        <repository>
             <id>nexus-ebi-release-repo</id>
             <url>http://www.ebi.ac.uk/Tools/maven/repos/content/groups/ebi-repo/</url>
         </repository>
         <repository>
             <id>nexus-ebi-snapshot-repo</id>
             <url>http://www.ebi.ac.uk/Tools/maven/repos/content/groups/ebi-snapshots/</url>
+        </repository>
+        <repository>
+            <id>nexus-ebi-pst-proxy-group</id>
+            <url>http://www.ebi.ac.uk/Tools/maven/repos/content/groups/proxy-group/</url>
         </repository>
     </repositories>
 

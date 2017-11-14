@@ -116,7 +116,7 @@ public class DatabaseAccessionRule extends AbstractMIRule<Xref> {
         // describe the rule.
         setName( "Database cross reference Check" );
         setDescription( "Checks that the each database cross reference is using a valid database accession which matches the regular expression of the database." );
-        addTip( "You can find all the regular expressions matching each database at http://www.ebi.ac.uk/ols/ontologies/mi/terms?iri=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FMI_0000" );
+        addTip( "You can find all the regular expressions matching each database at https://www.ebi.ac.uk/ols/ontologies/mi/terms?iri=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FMI_0000" );
 
         // setting up OLS client
         try {

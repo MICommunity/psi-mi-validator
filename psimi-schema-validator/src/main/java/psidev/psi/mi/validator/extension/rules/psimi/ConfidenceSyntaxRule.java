@@ -64,7 +64,7 @@ public class ConfidenceSyntaxRule extends AbstractMIRule<Confidence> {
                     if (messages.isEmpty()){
                         messages = new ArrayList<ValidatorMessage>();
                     }
-                    messages.add( new ValidatorMessage( "The confidence type MI identifier "+type.getMIIdentifier()+"  does not exist in the PSI-MI ontology. The valid MI terms for confidence types are available here: http://www.ebi.ac.uk/ols/ontologies/mi/terms?obo_id=MI:1064",
+                    messages.add( new ValidatorMessage( "The confidence type MI identifier "+type.getMIIdentifier()+"  does not exist in the PSI-MI ontology. The valid MI terms for confidence types are available here: https://www.ebi.ac.uk/ols/ontologies/mi/terms?obo_id=MI:1064",
                             MessageLevel.ERROR,
                             context,
                             this ) );
@@ -86,7 +86,7 @@ public class ConfidenceSyntaxRule extends AbstractMIRule<Confidence> {
                         if (messages.isEmpty()){
                             messages = new ArrayList<ValidatorMessage>();
                         }
-                        messages.add( new ValidatorMessage( "The MI identifier "+type.getMIIdentifier()+" is not a valid MI identifier for confidence types. The valid MI terms for confidence types are available here: http://www.ebi.ac.uk/ols/ontologies/mi/terms?obo_id=MI:1064",
+                        messages.add( new ValidatorMessage( "The MI identifier "+type.getMIIdentifier()+" is not a valid MI identifier for confidence types. The valid MI terms for confidence types are available here: https://www.ebi.ac.uk/ols/ontologies/mi/terms?obo_id=MI:1064",
                                 MessageLevel.ERROR,
                                 context,
                                 this ) );

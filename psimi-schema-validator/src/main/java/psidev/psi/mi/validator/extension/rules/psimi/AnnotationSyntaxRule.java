@@ -60,7 +60,7 @@ public class AnnotationSyntaxRule extends AbstractMIRule<Annotation> {
 
                 if (dbTerm == null){
                     MiContext context = RuleUtils.buildContext(annotation, "annotation");
-                    messages = Collections.singleton( new ValidatorMessage( "The annotation topic MI identifier "+topic.getMIIdentifier()+"  does not exist in the PSI-MI ontology. The valid MI terms for annotation topics are available here: http://www.ebi.ac.uk/ols/ontologies/mi/terms?obo_id=MI:0590",
+                    messages = Collections.singleton( new ValidatorMessage( "The annotation topic MI identifier "+topic.getMIIdentifier()+"  does not exist in the PSI-MI ontology. The valid MI terms for annotation topics are available here: https://www.ebi.ac.uk/ols/ontologies/mi/terms?obo_id=MI:0590",
                             MessageLevel.ERROR,
                             context,
                             this ) );
@@ -80,7 +80,7 @@ public class AnnotationSyntaxRule extends AbstractMIRule<Annotation> {
                     if (!foundParent){
                         MiContext context = RuleUtils.buildContext(annotation, "annotation");
 
-                        messages = Collections.singleton( new ValidatorMessage( "The MI identifier "+topic.getMIIdentifier()+" is not a valid MI identifier for annotation topics. The valid MI terms for annotation topics are available here: http://www.ebi.ac.uk/ols/ontologies/mi/terms?obo_id=MI:0590",
+                        messages = Collections.singleton( new ValidatorMessage( "The MI identifier "+topic.getMIIdentifier()+" is not a valid MI identifier for annotation topics. The valid MI terms for annotation topics are available here: https://www.ebi.ac.uk/ols/ontologies/mi/terms?obo_id=MI:0590",
                                 MessageLevel.ERROR,
                                 context,
                                 this ) );
