@@ -111,17 +111,17 @@
         </dependency>
 
         <!-- OBO -->
-        <dependency>
-            <groupId>obo</groupId>
-            <artifactId>obo</artifactId>
-            <version>2.0</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>obo</groupId>-->
+            <!--<artifactId>obo</artifactId>-->
+            <!--<version>2.0</version>-->
+        <!--</dependency>-->
 
-        <dependency>
-            <groupId>obo</groupId>
-            <artifactId>bbop</artifactId>
-            <version>2.0</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>obo</groupId>-->
+            <!--<artifactId>bbop</artifactId>-->
+            <!--<version>2.0</version>-->
+        <!--</dependency>-->
 
         <!-- JAXB: expects this version -->
         <dependency>
