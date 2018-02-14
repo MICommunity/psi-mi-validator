@@ -39,7 +39,7 @@ a.OraLink:hover {
 /***********/
 
 .AFHeaderErrorIcon:alias {
-    content: url(http://www.ebi.ac.uk/inc/images/info.gif);
+    content: url(https://www.ebi.ac.uk/inc/images/info.gif);
     padding-right: 5px;
 }
 
@@ -49,7 +49,7 @@ a.OraLink:hover {
 }
 
 .AFHeaderInfoIcon:alias {
-    content: url(http://www.ebi.ac.uk/inc/images/info.gif);
+    content: url(https://www.ebi.ac.uk/inc/images/info.gif);
     padding-right: 5px;
 }
 
@@ -139,7 +139,7 @@ af|panelBox::light af|panelBox::content{
 }
 
 af|panelBox::light af|panelBox::header {
-    background: #EDF6F5 url("http://www.ebi.ac.uk/inc/images/head_blue2d.gif") repeat-x scroll right top;
+    background: #EDF6F5 url("https://www.ebi.ac.uk/inc/images/head_blue2d.gif") repeat-x scroll right top;
     border-collapse: collapse;
     border-width: 0px 0px 1px;
     color: #1F1F1F;
@@ -156,7 +156,7 @@ af|panelBox::light af|panelBox::body {
 }
 
 af|panelBox::light af|panelBox::content {
-    background: transparent url("http://www.ebi.ac.uk/inc/images/head_blue3b.gif") repeat-x scroll right top;
+    background: transparent url("https://www.ebi.ac.uk/inc/images/head_blue3b.gif") repeat-x scroll right top;
     margin: 0px 0px 0px 2px;
     padding: 3px 4px 5px;
     vertical-align: top;
@@ -309,7 +309,7 @@ af|panelLabelAndMessage::label {
 /*****************/
 
 af|panelTabbed::tab-selected {
-    background:white url(http://www.ebi.ac.uk/inc/images/head_bot_blue3b.gif) repeat-x scroll right top;
+    background:white url(https://www.ebi.ac.uk/inc/images/head_bot_blue3b.gif) repeat-x scroll right top;
     border-color:#000000 -moz-use-text-color;
     border-style:solid solid none;
     border-width:1px 1px 0px;
@@ -321,7 +321,7 @@ af|panelTabbed::tab-selected a span {
 }
 
 af|panelTabbed::tab {
-    background:#EDF6F5 url(http://www.ebi.ac.uk/inc/images/head_bot_blue3b.gif) repeat-x scroll right top;
+    background:#EDF6F5 url(https://www.ebi.ac.uk/inc/images/head_bot_blue3b.gif) repeat-x scroll right top;
     border:1px solid #999999;
     cursor:pointer;
     font-size:12px;
@@ -486,13 +486,13 @@ af|navigationPane::list-content a:hover {
 }
 
 af|panelSideBar::body    af|navigationPane::list-bullet {
-    background-image: url(http://www.ebi.ac.uk/inc/images/leftmenu/level1_link.gif);
+    background-image: url(https://www.ebi.ac.uk/inc/images/leftmenu/level1_link.gif);
     background-position: 4px -2px;
     background-repeat:no-repeat;
 }
 
 af|panelSideBar::body   af|navigationPane::list-active-enabled af|navigationPane::list-bullet  {
-    background-image: url(http://www.ebi.ac.uk/inc/images/leftmenu/level1_minus.gif);
+    background-image: url(https://www.ebi.ac.uk/inc/images/leftmenu/level1_minus.gif);
     background-position: 4px -2px;
     background-repeat:no-repeat;
 }
