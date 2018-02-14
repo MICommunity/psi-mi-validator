@@ -434,10 +434,10 @@ public class PsiValidatorController extends BaseController {
             }
             validateInputStream();
 
-        } catch ( Throwable t ) {
+        } catch ( Exception e ) {
             final String msg = "Failed to upload from " + ( uploadLocalFile ? "local file" : "URL" );
 
-            log.error( msg, t );
+            log.error( msg, e );
 
             FacesContext context = FacesContext.getCurrentInstance();
             FacesMessage message = new FacesMessage( msg );
@@ -704,7 +704,7 @@ public class PsiValidatorController extends BaseController {
                 context.addMessage( null, message );
             }
         }
-        catch ( Throwable e ) {
+        catch ( Exception e ) {
             currentPsiReport = null;
             final String msg = "The given URL wasn't valid";
             log.error( msg, e );
@@ -778,6 +778,9 @@ public class PsiValidatorController extends BaseController {
                     }
                 }
             }
+        } catch (FileNotFoundException e) {
+            log.error("Impossible to create the file", e);
+            e.printStackTrace();
         }
         finally {
             try{

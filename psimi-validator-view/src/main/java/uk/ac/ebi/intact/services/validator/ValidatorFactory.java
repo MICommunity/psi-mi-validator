@@ -190,8 +190,8 @@ public class ValidatorFactory {
 
             return validator;
 
-        } catch (Throwable t) {
-            throw new ValidatorWebContextException("An error occured while configuring the PAR validator.", t);
+        } catch (Exception e) {
+            throw new ValidatorWebContextException("An error occured while configuring the PAR validator.", e);
         }
         finally {
             if (ontologyCfg != null){
@@ -278,9 +278,9 @@ public class ValidatorFactory {
 
             return validator;
 
-        } catch (Throwable t) {
+        } catch (Exception e) {
 
-            throw new ValidatorWebContextException("An error occured while configuring the MI validator.", t);
+            throw new ValidatorWebContextException("An error occured while configuring the MI validator.", e);
         }
     }
 
@@ -306,9 +306,9 @@ public class ValidatorFactory {
 
             return validator;
 
-        } catch (Throwable t) {
+        } catch (Exception e) {
 
-            throw new ValidatorWebContextException("An error occured while configuring the MI validator.", t);
+            throw new ValidatorWebContextException("An error occured while configuring the MI validator.", e);
         }
     }
 
@@ -398,9 +398,9 @@ public class ValidatorFactory {
 
             return validator;
 
-        }catch (Throwable t) {
+        }catch (Exception e) {
 
-            throw new ValidatorWebContextException("An error occured while configuring the MI validator.", t);
+            throw new ValidatorWebContextException("An error occured while configuring the MI validator.", e);
         }
         finally {
             if (ontologyCfg != null){
