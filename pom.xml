@@ -15,7 +15,7 @@
         <spring.version>3.2.9.RELEASE</spring.version>
         <!--check if ols version is the same in both libraries-->
         <jami.version>3.0.12</jami.version>
-        <psidev.psi.tool.version>2.0.10-SNAPSHOT</psidev.psi.tool.version>
+        <psidev.psi.tool.version>2.0.9</psidev.psi.tool.version>
 </properties>
 
     <scm>
