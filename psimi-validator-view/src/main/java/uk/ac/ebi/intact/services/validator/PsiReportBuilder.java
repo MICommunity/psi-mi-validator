@@ -147,14 +147,14 @@ public class PsiReportBuilder {
                 throw new IllegalStateException( "Unknown data model: " + model );
             }*/
 
-        } catch (Throwable t) {
-            log.error("Unexpected error thrown", t);
+        } catch (Exception e) {
+            log.error("Unexpected error thrown", e);
 
             FacesContext context = FacesContext.getCurrentInstance();
             FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR,
                     "Sorry, an unexpected error occur, please contact the " +
                             "administrator of this web site if the issue persist.",
-                    t.getMessage());
+                    e.getMessage());
             context.addMessage(null, facesMessage);
 
             return report;
@@ -197,14 +197,14 @@ public class PsiReportBuilder {
                 throw new IllegalStateException( "Unknown data model: " + model );
             }*/
 
-        } catch (Throwable t) {
-            log.error("Unexpected error thrown", t);
+        } catch (Exception e) {
+            log.error("Unexpected error thrown", e);
 
             FacesContext context = FacesContext.getCurrentInstance();
             FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR,
                     "Sorry, an unexpected error occur, please contact the " +
                             "administrator of this web site if the issue persist.",
-                    t.getMessage());
+                    e.getMessage());
             context.addMessage(null, facesMessage);
 
             return report;
@@ -344,12 +344,12 @@ public class PsiReportBuilder {
             // run validation
             validatePsiFile( report, file, ontologyCfg, cvMappingCfg, ruleCfg );
 
-        } catch (Throwable t) {
+        } catch (Exception e) {
 
-            log.error( "An error occurred while configuring the MI validator", t );
+            log.error( "An error occurred while configuring the MI validator", e );
 
             FacesContext context = FacesContext.getCurrentInstance();
-            FacesMessage message = new FacesMessage( "An error occured while validating your data: " + t.getMessage() );
+            FacesMessage message = new FacesMessage( "An error occured while validating your data: " + e.getMessage() );
             context.addMessage( null, message );
         }
         finally {
@@ -419,12 +419,12 @@ public class PsiReportBuilder {
             // run validation
             validatePsiFile( report, file, ontologyCfg, cvMappingCfg, ruleCfg );
 
-        } catch (Throwable t) {
+        } catch (Exception e) {
 
-            log.error( "An error occured while configuring the PAR validator", t );
+            log.error( "An error occured while configuring the PAR validator", e );
 
             FacesContext context = FacesContext.getCurrentInstance();
-            FacesMessage message = new FacesMessage( "An error occured while validating your data: " + t.getMessage() );
+            FacesMessage message = new FacesMessage( "An error occured while validating your data: " + e.getMessage() );
             context.addMessage( null, message );
         }
     }
@@ -529,20 +529,20 @@ public class PsiReportBuilder {
                 report.setSemanticsReport(output);
                 return;
             }
-            
-        } catch (Throwable t) {
+
+        } catch (Exception e) {
 
             StringBuilder sb = new StringBuilder( 512 );
             sb.append( "An error occured while validating your data model" );
 
-            Throwable cause = t.getCause();
+            Throwable cause = e.getCause();
             while( cause != null ) {
                 sb.append( " > " ).append( cause.getMessage() );
                 cause = cause.getCause();
             }
 
             String msg = sb.toString();
-            log.error( msg, t );
+            log.error( msg, e );
 
             FacesContext context = FacesContext.getCurrentInstance();
             FacesMessage message = new FacesMessage( msg );
@@ -672,19 +672,19 @@ public class PsiReportBuilder {
                 report.setSemanticsReport("Document is valid");
             }
 
-        } catch (Throwable t) {
+        } catch (Exception e) {
 
             StringBuilder sb = new StringBuilder( 512 );
             sb.append( "An error occured while validating your data model" );
 
-            Throwable cause = t.getCause();
+            Throwable cause = e.getCause();
             while( cause != null ) {
                 sb.append( " > " ).append( cause.getMessage() );
                 cause = cause.getCause();
             }
 
             String msg = sb.toString();
-            log.error( msg, t );
+            log.error( msg, e );
 
             FacesContext context = FacesContext.getCurrentInstance();
             FacesMessage message = new FacesMessage( msg );

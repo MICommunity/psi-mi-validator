@@ -332,38 +332,6 @@ to use the fullqualified class name. -->
         <url-pattern>/adf/*</url-pattern>
     </servlet-mapping>
 
-    <!-- Frontier guidelines servlets -->
-    <servlet>
-        <servlet-name>appHeaderSpecific</servlet-name>
-        <servlet-class>uk.ac.ebi.intact.services.validator.servlets.AppHeaderSpecificServlet</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>appHeaderSpecific</servlet-name>
-        <url-pattern>/appHeaderSpecific</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>appMainHeader</servlet-name>
-        <servlet-class>uk.ac.ebi.intact.services.validator.servlets.AppMainHeaderServlet</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>appMainHeader</servlet-name>
-        <url-pattern>/appMainHeader</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>appMainFooter</servlet-name>
-        <servlet-class>uk.ac.ebi.intact.services.validator.servlets.AppMainFooterServlet</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>appMainFooter</servlet-name>
-        <url-pattern>/appMainFooter</url-pattern>
-    </servlet-mapping>
-
-
     <!-- Welcome files -->
     <welcome-file-list>
         <welcome-file>/index.html</welcome-file>
