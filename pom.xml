@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>psidev.psi.mi</groupId>
@@ -15,8 +16,8 @@
         <spring.version>3.2.9.RELEASE</spring.version>
         <!--check if ols version is the same in both libraries-->
         <jami.version>3.0.12</jami.version>
-        <psidev.psi.tool.version>2.0.9</psidev.psi.tool.version>
-</properties>
+        <psidev.psi.tool.version>2.0.13-SNAPSHOT</psidev.psi.tool.version>
+    </properties>
 
     <scm>
         <connection>scm:git:https://github.com/MICommunity/psi-mi-validator.git</connection>
@@ -108,8 +109,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.2</version>
                 <configuration>
-                    <source>1.5</source>
-                    <target>1.5</target>
+                    <source>1.8</source>
+                    <target>1.8</target>
                     <excludes>
                         <exclude>**/test/**/*.java</exclude>
                     </excludes>
@@ -174,16 +175,20 @@
 
     <repositories>
         <repository>
+            <id>nexus-ebi-public</id>
+            <url>http://wp-p1m2-e4:8081/nexus/content/groups/public/</url>
+        </repository>
+        <repository>
             <id>nexus-ebi-repo-old</id>
-            <url>http://www.ebi.ac.uk/intact/maven/nexus/content/repositories/ebi-repo/</url>
+            <url>http://wp-p1m2-e4:8081/nexus/content/groups/ebi-repo/</url>
         </repository>
         <repository>
             <id>nexus-ebi-release-repo</id>
-            <url>http://www.ebi.ac.uk/Tools/maven/repos/content/groups/ebi-repo/</url>
+            <url>http://wp-p1m2-e4:8081/nexus/content/groups/ebi-repo/</url>
         </repository>
         <repository>
             <id>nexus-ebi-snapshot-repo</id>
-            <url>http://www.ebi.ac.uk/Tools/maven/repos/content/groups/ebi-snapshots/</url>
+            <url>http://wp-p1m2-e4:8081/nexus/content/groups/ebi-snapshots/</url>
         </repository>
     </repositories>
 
