@@ -22,6 +22,7 @@ import java.util.Collection;
  * @version $Id$
  * @since 1.0
  */
+@Ignore
 public class Mi25ValidatorTest {
 
     private MiValidator aValidator;
