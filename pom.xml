@@ -5,7 +5,7 @@
 
     <groupId>psidev.psi.mi</groupId>
     <artifactId>validator</artifactId>
-    <version>3.1.5-SNAPSHOT</version>
+    <version>3.2.0</version>
     <packaging>pom</packaging>
 
     <name>PSI :: Schema Validator</name>
@@ -13,10 +13,10 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <spring.version>3.2.9.RELEASE</spring.version>
+        <spring.version>4.3.30.RELEASE</spring.version>
         <!--check if ols version is the same in both libraries-->
-        <jami.version>3.0.12</jami.version>
-        <psidev.psi.tool.version>2.0.13-SNAPSHOT</psidev.psi.tool.version>
+        <jami.version>3.3.0</jami.version>
+        <psidev.psi.tool.version>2.1.0</psidev.psi.tool.version>
     </properties>
 
     <scm>
@@ -71,7 +71,7 @@
                 <plugin>
                     <groupId>org.apache.felix</groupId>
                     <artifactId>maven-bundle-plugin</artifactId>
-                    <version>1.4.3</version>
+                    <version>5.1.2</version>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -107,10 +107,10 @@
             </plugin>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.2</version>
+                <version>3.10.1</version>
                 <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <source>11</source>
+                    <target>11</target>
                     <excludes>
                         <exclude>**/test/**/*.java</exclude>
                     </excludes>
@@ -118,7 +118,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>2.1.2</version>
+                <version>3.2.1</version>
                 <executions>
                     <execution>
                         <id>attach-source</id>
@@ -135,10 +135,10 @@
         <profile>
             <id>disable-java8-doclint</id>
             <activation>
-                <jdk>[1.8,)</jdk>
+                <jdk>[11,)</jdk>
             </activation>
             <properties>
-                <additionalparam>-Xdoclint:none</additionalparam>
+                <doclint>none</doclint>
             </properties>
         </profile>
     </profiles>
@@ -149,7 +149,7 @@
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
-                <version>4.10</version>
+                <version>4.13.2</version>
                 <optional>true</optional>
                 <scope>test</scope>
             </dependency>
@@ -175,20 +175,16 @@
 
     <repositories>
         <repository>
-            <id>nexus-ebi-public</id>
-            <url>http://wp-p1m2-e4:8081/nexus/content/groups/public/</url>
-        </repository>
-        <repository>
             <id>nexus-ebi-repo-old</id>
-            <url>http://wp-p1m2-e4:8081/nexus/content/groups/ebi-repo/</url>
+            <url>https://www.ebi.ac.uk/intact/maven/nexus/content/repositories/ebi-repo/</url>
         </repository>
         <repository>
             <id>nexus-ebi-release-repo</id>
-            <url>http://wp-p1m2-e4:8081/nexus/content/groups/ebi-repo/</url>
+            <url>https://www.ebi.ac.uk/Tools/maven/repos/content/groups/ebi-repo/</url>
         </repository>
         <repository>
             <id>nexus-ebi-snapshot-repo</id>
-            <url>http://wp-p1m2-e4:8081/nexus/content/groups/ebi-snapshots/</url>
+            <url>https://www.ebi.ac.uk/Tools/maven/repos/content/groups/ebi-snapshots/</url>
         </repository>
     </repositories>
 
@@ -197,14 +193,14 @@
         <repository>
             <id>pst-release</id>
             <name>EBI Nexus Repository</name>
-            <url>http://www.ebi.ac.uk/Tools/maven/repos/content/repositories/pst-release</url>
+            <url>https://www.ebi.ac.uk/Tools/maven/repos/content/repositories/pst-release/</url>
         </repository>
         <!-- EBI SNAPSHOT repo -->
         <snapshotRepository>
             <uniqueVersion>false</uniqueVersion>
             <id>pst-snapshots</id>
             <name>EBI Nexus Snapshots Repository</name>
-            <url>http://www.ebi.ac.uk/Tools/maven/repos/content/repositories/pst-snapshots</url>
+            <url>https://www.ebi.ac.uk/Tools/maven/repos/content/repositories/pst-snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
 

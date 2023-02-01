@@ -5,7 +5,7 @@
     <parent>
         <groupId>psidev.psi.mi</groupId>
         <artifactId>validator</artifactId>
-        <version>3.1.5-SNAPSHOT</version>
+        <version>3.2.0</version>
     </parent>
 
     <artifactId>psimi-schema-validator</artifactId>
@@ -50,7 +50,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.7</version>
+                <version>3.2.0</version>
                 <executions>
                     <execution>
                         <id>attach-javadocs</id>

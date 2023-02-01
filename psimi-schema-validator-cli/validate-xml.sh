@@ -2,4 +2,4 @@
 
 FILE=$1
 
-mvn -U clean install -Pvalidate -Dfile=$FILE -Dscope=xml -Dlevel=WARN -Dmaven.test.skip
+mvn -U clean install -Pvalidate -Dfile=$FILE -Dscope=syntax -Dlevel=WARN -Dmaven.test.skip

@@ -44,6 +44,13 @@ public class MiContext extends Context {
     ///////////////////////////
     // Getters and Setters
 
+    public List<MiContext> getContexts() {
+        return getAssociatedContexts();
+    }
+
+    public int getNumberOfContexts(){
+        return getContexts().size();
+    }
 
     public List<MiContext> getAssociatedContexts() {
         if (associatedContexts == null){
