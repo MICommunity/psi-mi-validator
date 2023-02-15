@@ -179,6 +179,10 @@
             <url>https://www.ebi.ac.uk/intact/maven/nexus/content/repositories/ebi-repo/</url>
         </repository>
         <repository>
+            <id>nexus-ebi-public</id>
+            <url>https://www.ebi.ac.uk/Tools/maven/repos/content/groups/public/</url>
+        </repository>
+        <repository>
             <id>nexus-ebi-release-repo</id>
             <url>https://www.ebi.ac.uk/Tools/maven/repos/content/groups/ebi-repo/</url>
         </repository>
