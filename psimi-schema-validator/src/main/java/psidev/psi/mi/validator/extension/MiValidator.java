@@ -6,6 +6,7 @@ import org.apache.commons.logging.LogFactory;
 import psidev.psi.mi.jami.commons.*;
 import psidev.psi.mi.jami.datasource.InteractionStream;
 import psidev.psi.mi.jami.datasource.MIFileDataSource;
+import psidev.psi.mi.jami.exception.MIIOException;
 import psidev.psi.mi.jami.factory.MIDataSourceFactory;
 import psidev.psi.mi.jami.model.*;
 import psidev.psi.mi.jami.tab.listener.MitabParserListener;
@@ -573,9 +574,21 @@ public class MiValidator extends Validator {
         Iterator interactionIterator = interactionSource.getInteractionsIterator();
         int number = 0;
         while ( interactionIterator.hasNext() ) {
-            Interaction interactionObject = (Interaction)interactionIterator.next();
-            if (interactionObject instanceof InteractionEvidence){
-                InteractionEvidence interaction = (InteractionEvidence)interactionObject;
+            Interaction interactionObject = null;
+            try {
+                interactionObject = (Interaction) interactionIterator.next();
+            } catch (MIIOException e) {
+                // The number is increased after the interaction is validated, so the current interaction being
+                // validated is not number, but number+1.
+                // Also, the interaction iterator does not parse the next interaction to return when the method
+                // next is called. Instead, when next is called, it parses the following interaction and assigns
+                // it to a variable, to return it on the next call, and returns the previously assigned interaction.
+                // That means that if there is an exception reading an interaction when next is called, is not on
+                // the current interaction (number+1), but on the following one (number+2).
+                log.error("Exception thrown when reading interaction " + (number + 2), e);
+            }
+            if (interactionObject instanceof InteractionEvidence) {
+                InteractionEvidence interaction = (InteractionEvidence) interactionObject;
 
                 // check using cv mapping rules
                 messages.addAll(super.checkCvMapping(interaction, "/interactionEvidence/"));
