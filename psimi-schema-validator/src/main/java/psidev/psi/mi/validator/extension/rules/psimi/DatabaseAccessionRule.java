@@ -273,7 +273,7 @@ public class DatabaseAccessionRule extends AbstractMIRule<Xref> {
                 // All database accessions must match the regular expression of its database
                 if (!databasePattern.matcher(accession).matches()){
                     MiContext context = RuleUtils.buildContext(xRef, "database xref");
-                    messages.add( new ValidatorMessage( "The database accession does not match the regular expression of this database.",
+                    messages.add( new ValidatorMessage( "The database accession does not match the regular expression of this database (" + databaseTerm.getPreferredName() + "): " + databasePattern.pattern(),
                             MessageLevel.WARN,
                             context,
                             this ) );
