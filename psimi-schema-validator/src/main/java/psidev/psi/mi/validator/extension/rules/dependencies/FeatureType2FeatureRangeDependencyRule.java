@@ -57,7 +57,7 @@ public class FeatureType2FeatureRangeDependencyRule extends AbstractMIRule<Featu
         // describe the rule.
         setName( "Dependency Check : Participant's feature type and participant's feature range status" );
         setDescription( "Checks association participant's feature type - participant's feature range status is valid and respects IMEx curation rules.");
-        addTip( "Search the possible terms for feature type and feature range status on https://www.ebi.ac.uk/ols/ontologies/mi" );
+        addTip( "Search the possible terms for feature type and feature range status on https://www.ebi.ac.uk/ols4/ontologies/mi" );
         addTip( "Look at the file https://github.com/MICommunity/PSI-MI-Validator/blob/master/psimi-schema-validator/src/main/resources/featureType2FeatureRangeStatus.tsv for the possible dependencies feature type - feature range status" );
 
     }

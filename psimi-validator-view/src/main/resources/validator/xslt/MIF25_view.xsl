@@ -55,7 +55,7 @@ Notes:
 <xsl:param name="newtUrl"
            select="'http://www.ebi.ac.uk/newt/display?search='"/>
 <xsl:param name="olsUrl"
-           select="'https://www.ebi.ac.uk/ols/ontologies/mi/terms?obo_id='"/>
+           select="'https://www.ebi.ac.uk/ols4/ontologies/mi/terms?obo_id='"/>
 
 <xsl:template match="psi:entrySet">
     <html>

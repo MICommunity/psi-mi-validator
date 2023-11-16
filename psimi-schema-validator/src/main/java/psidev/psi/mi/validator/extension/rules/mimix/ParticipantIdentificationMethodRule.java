@@ -30,7 +30,7 @@ public class ParticipantIdentificationMethodRule extends AbstractMIRule<Particip
         setDescription( "Checks that each participant has at least one Participant Identification Method (MI:0002)." );
         addTip( "Each participant should have a Participant Identification method" );
         addTip( "Each participant identification method should have a PSI MI cross reference with a reference type set to identical object (MI:0356)" );
-        addTip( "Any child of MI:0002 is a Participant Identification method. You can look at https://www.ebi.ac.uk/ols/ontologies/mi." );
+        addTip( "Any child of MI:0002 is a Participant Identification method. You can look at https://www.ebi.ac.uk/ols4/ontologies/mi." );
         addTip( "The PSI-MI identifier for identical object is: MI:0356" );
     }
 
