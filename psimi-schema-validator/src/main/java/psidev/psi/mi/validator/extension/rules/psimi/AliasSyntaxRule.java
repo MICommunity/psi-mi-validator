@@ -64,7 +64,7 @@ public class AliasSyntaxRule extends AbstractMIRule<Alias> {
                     if (messages.isEmpty()){
                        messages = new ArrayList<ValidatorMessage>();
                     }
-                    messages.add( new ValidatorMessage( "The alias type MI identifier "+alias.getType().getMIIdentifier()+"  does not exist in the PSI-MI ontology. The valid MI terms for alias types are available here: https://www.ebi.ac.uk/ols/ontologies/mi/terms?obo_id=MI:0300",
+                    messages.add( new ValidatorMessage( "The alias type MI identifier "+alias.getType().getMIIdentifier()+"  does not exist in the PSI-MI ontology. The valid MI terms for alias types are available here: https://www.ebi.ac.uk/ols4/ontologies/mi/terms?obo_id=MI:0300",
                             MessageLevel.ERROR,
                             context,
                             this ) );
@@ -86,7 +86,7 @@ public class AliasSyntaxRule extends AbstractMIRule<Alias> {
                         if (messages.isEmpty()){
                             messages = new ArrayList<ValidatorMessage>();
                         }
-                        messages.add( new ValidatorMessage( "The MI identifier "+alias.getType().getMIIdentifier()+" is not a valid MI identifier for alias types. The valid MI terms for alias types are available here: https://www.ebi.ac.uk/ols/ontologies/mi/terms?obo_id=MI:0300",
+                        messages.add( new ValidatorMessage( "The MI identifier "+alias.getType().getMIIdentifier()+" is not a valid MI identifier for alias types. The valid MI terms for alias types are available here: https://www.ebi.ac.uk/ols4/ontologies/mi/terms?obo_id=MI:0300",
                                 MessageLevel.ERROR,
                                 context,
                                 this ) );

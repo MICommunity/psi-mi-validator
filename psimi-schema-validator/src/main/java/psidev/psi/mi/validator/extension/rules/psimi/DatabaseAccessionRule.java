@@ -116,7 +116,7 @@ public class DatabaseAccessionRule extends AbstractMIRule<Xref> {
         // describe the rule.
         setName( "Database cross reference Check" );
         setDescription( "Checks that the each database cross reference is using a valid database accession which matches the regular expression of the database." );
-        addTip( "You can find all the regular expressions matching each database at https://www.ebi.ac.uk/ols/ontologies/mi/terms?iri=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FMI_0000" );
+        addTip( "You can find all the regular expressions matching each database at https://www.ebi.ac.uk/ols4/ontologies/mi/terms?iri=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FMI_0000" );
 
         // setting up OLS client
         try {
@@ -273,7 +273,7 @@ public class DatabaseAccessionRule extends AbstractMIRule<Xref> {
                 // All database accessions must match the regular expression of its database
                 if (!databasePattern.matcher(accession).matches()){
                     MiContext context = RuleUtils.buildContext(xRef, "database xref");
-                    messages.add( new ValidatorMessage( "The database accession does not match the regular expression of this database.",
+                    messages.add( new ValidatorMessage( "The database accession does not match the regular expression of this database (" + databaseTerm.getPreferredName() + "): " + databasePattern.pattern(),
                             MessageLevel.WARN,
                             context,
                             this ) );

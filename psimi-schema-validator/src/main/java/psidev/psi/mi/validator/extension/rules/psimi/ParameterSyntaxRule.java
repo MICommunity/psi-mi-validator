@@ -65,7 +65,7 @@ public class ParameterSyntaxRule extends AbstractMIRule<Parameter> {
                     if (messages.isEmpty()){
                         messages = new ArrayList<ValidatorMessage>();
                     }
-                    messages.add( new ValidatorMessage( "The parameter type MI identifier "+type.getMIIdentifier()+"  does not exist in the PSI-MI ontology. The valid MI terms for parameter types are available here: https://www.ebi.ac.uk/ols/ontologies/mi/terms?obo_id=MI:0640",
+                    messages.add( new ValidatorMessage( "The parameter type MI identifier "+type.getMIIdentifier()+"  does not exist in the PSI-MI ontology. The valid MI terms for parameter types are available here: https://www.ebi.ac.uk/ols4/ontologies/mi/terms?obo_id=MI:0640",
                             MessageLevel.ERROR,
                             context,
                             this ) );
@@ -87,7 +87,7 @@ public class ParameterSyntaxRule extends AbstractMIRule<Parameter> {
                         if (messages.isEmpty()){
                             messages = new ArrayList<ValidatorMessage>();
                         }
-                        messages.add( new ValidatorMessage( "The MI identifier "+type.getMIIdentifier()+" is not a valid MI identifier for parameter types. The valid MI terms for parameter types are available here: https://www.ebi.ac.uk/ols/ontologies/mi/terms?obo_id=MI:0640",
+                        messages.add( new ValidatorMessage( "The MI identifier "+type.getMIIdentifier()+" is not a valid MI identifier for parameter types. The valid MI terms for parameter types are available here: https://www.ebi.ac.uk/ols4/ontologies/mi/terms?obo_id=MI:0640",
                                 MessageLevel.ERROR,
                                 context,
                                 this ) );
@@ -103,7 +103,7 @@ public class ParameterSyntaxRule extends AbstractMIRule<Parameter> {
                     if (messages.isEmpty()){
                         messages = new ArrayList<ValidatorMessage>();
                     }
-                    messages.add( new ValidatorMessage( "The parameter unit MI identifier "+unit.getMIIdentifier()+"  does not exist in the PSI-MI ontology. The valid MI terms for parameter units are available here: https://www.ebi.ac.uk/ols/ontologies/mi/terms?obo_id=MI:0647",
+                    messages.add( new ValidatorMessage( "The parameter unit MI identifier "+unit.getMIIdentifier()+"  does not exist in the PSI-MI ontology. The valid MI terms for parameter units are available here: https://www.ebi.ac.uk/ols4/ontologies/mi/terms?obo_id=MI:0647",
                             MessageLevel.ERROR,
                             context,
                             this ) );
@@ -125,7 +125,7 @@ public class ParameterSyntaxRule extends AbstractMIRule<Parameter> {
                         if (messages.isEmpty()){
                             messages = new ArrayList<ValidatorMessage>();
                         }
-                        messages.add( new ValidatorMessage( "The MI identifier "+unit.getMIIdentifier()+" is not a valid MI identifier for parameter units. The valid MI terms for parameter units are available here: https://www.ebi.ac.uk/ols/ontologies/mi/terms?obo_id=MI:0647",
+                        messages.add( new ValidatorMessage( "The MI identifier "+unit.getMIIdentifier()+" is not a valid MI identifier for parameter units. The valid MI terms for parameter units are available here: https://www.ebi.ac.uk/ols4/ontologies/mi/terms?obo_id=MI:0647",
                                 MessageLevel.ERROR,
                                 context,
                                 this ) );

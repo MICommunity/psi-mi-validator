@@ -32,7 +32,7 @@ public class InteractorTypeRule extends AbstractMIRule<Interactor> {
         setDescription( "Interactor's type cannot be set to 'nucleic acid' or 'small molecule' as it is currently outside " +
                 "of the remit of IMEx." );
 
-        addTip( "The possible interactor types can be found at https://www.ebi.ac.uk/ols/ontologies/mi/terms?obo_id=MI:0313" );
+        addTip( "The possible interactor types can be found at https://www.ebi.ac.uk/ols4/ontologies/mi/terms?obo_id=MI:0313" );
     }
 
     @Override

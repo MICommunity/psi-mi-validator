@@ -61,7 +61,7 @@ public class FeatureType2FeatureDetectionMethodDependencyRule extends AbstractMI
         // describe the rule.
         setName( "Dependency Check : Participant's feature type and feature detection method" );
         setDescription( "Checks that each association participant's feature type - feature detection method is valid and respects IMEx curation rules.");
-        addTip( "Search the possible terms for feature type and feature detection method on https://www.ebi.ac.uk/ols/ontologies/mi" );
+        addTip( "Search the possible terms for feature type and feature detection method on https://www.ebi.ac.uk/ols4/ontologies/mi" );
         addTip( "Look at the file https://github.com/MICommunity/PSI-MI-Validator/blob/master/psimi-schema-validator/src/main/resources/featureType2FeatureDetectionMethod.tsv for the possible dependencies feature type - feature detection method" );
     }
 
