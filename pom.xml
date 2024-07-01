@@ -15,8 +15,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring.version>4.3.30.RELEASE</spring.version>
         <!--check if ols version is the same in both libraries-->
-        <jami.version>3.5.1-SNAPSHOT</jami.version>
-        <psidev.psi.tool.version>2.1.2-SNAPSHOT</psidev.psi.tool.version>
+        <jami.version>3.5.2-SNAPSHOT</jami.version>
+        <psidev.psi.tool.version>2.1.2</psidev.psi.tool.version>
     </properties>
 
     <scm>
