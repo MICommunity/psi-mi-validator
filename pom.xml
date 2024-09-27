@@ -5,7 +5,7 @@
 
     <groupId>psidev.psi.mi</groupId>
     <artifactId>validator</artifactId>
-    <version>3.2.3-SNAPSHOT</version>
+    <version>3.2.3</version>
     <packaging>pom</packaging>
 
     <name>PSI :: Schema Validator</name>
@@ -15,7 +15,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring.version>4.3.30.RELEASE</spring.version>
         <!--check if ols version is the same in both libraries-->
-        <jami.version>3.6.0-SNAPSHOT</jami.version>
+        <jami.version>3.6.0</jami.version>
         <psidev.psi.tool.version>2.1.2</psidev.psi.tool.version>
     </properties>
 
