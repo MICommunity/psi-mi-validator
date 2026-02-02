@@ -1,0 +1,120 @@
+image: docker:latest
+services:
+  - docker:stable-dind
+variables:
+  DOCKER_TLS_CERTDIR: ""
+stages:
+  - build-jar
+  - build-docker-image
+  - kubernetes-deploy
+
+.maven-build:
+  image: maven:3.6-jdk-11
+  stage: build-jar
+  before_script:
+    - mvn compile install
+  after_script:
+    - mkdir /builds/intact-ci/psi-mi-validator/target/
+    - cp /builds/intact-ci/psi-mi-validator/psimi-validator-view/target/psimi-validator-view.war /builds/intact-ci/psi-mi-validator/target/
+    - sed -i -e "s|<TOMCAT_MANAGER_PASSWORD>|$TOMCAT_MANAGER_PASSWORD|g" config/tomcat-users.xml
+  artifacts:
+    paths:
+      - target/*.war
+      - config/*
+    reports:
+      dotenv: build.env
+  when: manual
+
+maven-build-hh:
+  extends: [ .maven-build ]
+  script:
+    - mvn package -B -s settings.xml -P validator,validator-k8s-hh -Dmaven.test.skip=true
+    - POM_VERSION=$(mvn -Dexec.executable='echo' -Dexec.args='${project.version}' --non-recursive exec:exec -q)
+    - echo "CONTAINER_IMAGE=${CI_REGISTRY_IMAGE}:${POM_VERSION}-hh" > build.env
+
+maven-build-hx:
+  extends: [ .maven-build ]
+  script:
+    - mvn package -B -s settings.xml -P validator,validator-k8s-hx -Dmaven.test.skip=true
+    - POM_VERSION=$(mvn -Dexec.executable='echo' -Dexec.args='${project.version}' --non-recursive exec:exec -q)
+    - echo "CONTAINER_IMAGE=${CI_REGISTRY_IMAGE}:${POM_VERSION}-hx" > build.env
+
+.docker-build:
+  stage: build-docker-image
+  before_script:
+    - unset DOCKER_HOST
+    - unset DOCKER_AUTH_CONFIG
+    - docker system prune -af
+  script:
+    - echo "$CI_DOCKER_HUB_PASSWORD" | docker login -u $CI_DOCKER_HUB_USER --password-stdin
+    - echo ${CONTAINER_IMAGE}
+    - docker build -t ${CONTAINER_IMAGE} --no-cache .
+    - docker image ls
+    - docker logout
+    - echo "$CI_REGISTRY_PASSWORD" | docker login -u $CI_REGISTRY_USER $CI_REGISTRY --password-stdin
+    - docker push ${CONTAINER_IMAGE}
+    - docker rmi ${CONTAINER_IMAGE}
+    - docker logout "$CI_REGISTRY"
+
+docker-build-hh:
+  extends: [ .docker-build ]
+  needs: [ maven-build-hh ]
+
+docker-build-hx:
+  extends: [ .docker-build ]
+  needs: [ maven-build-hx ]
+
+.kubernetes-deploy:
+  stage: kubernetes-deploy
+  image: alpine
+  before_script:
+    - apk add --no-cache curl git
+    - curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
+    - chmod +x ./kubectl
+    - mv ./kubectl /usr/local/bin/kubectl
+    - git clone https://k8s-config-token:${K8S_CONFIG_TOKEN}@gitlab.ebi.ac.uk/intact-ci/k8s-config
+    - mkdir ~/.kube
+    - cp k8s-config/config ~/.kube/
+  when: manual
+
+hh-test-deploy:
+  extends: [ .kubernetes-deploy ]
+  needs: [ maven-build-hh, docker-build-hh ]
+  script:
+    - kubectl config get-contexts
+    - kubectl config use-context hh-intact-test
+    - kubectl create secret docker-registry gitlab-registry --docker-server=$CI_REGISTRY --docker-username=$CI_REGISTRY_USER --docker-password=$CI_REGISTRY_PASSWORD --docker-email=$GITLAB_USER_EMAIL --dry-run=client -o yaml | kubectl apply -f -
+    - kubectl get secrets gitlab-registry -o yaml
+    - echo ${CONTAINER_IMAGE}
+    - sed -i -e "s|<CONTAINER_IMAGE>|$CONTAINER_IMAGE|g" k8s-deploy-config/k8s_hh_deploy.yml
+    - kubectl apply -f k8s-deploy-config/k8s_hh_deploy.yml
+    - kubectl rollout restart deployment/psi-mi-validator-deployment
+    - kubectl get nodes
+
+hx-prod-deploy:
+  extends: [ .kubernetes-deploy ]
+  needs: [ maven-build-hx, docker-build-hx ]
+  script:
+    - kubectl config get-contexts
+    - kubectl config use-context hx-intact-prod
+    - kubectl create secret docker-registry gitlab-registry --docker-server=$CI_REGISTRY --docker-username=$CI_REGISTRY_USER --docker-password=$CI_REGISTRY_PASSWORD --docker-email=$GITLAB_USER_EMAIL --dry-run=client -o yaml | kubectl apply -f -
+    - kubectl get secrets gitlab-registry -o yaml
+    - echo ${CONTAINER_IMAGE}
+    - sed -i -e "s|<CONTAINER_IMAGE>|$CONTAINER_IMAGE|g" k8s-deploy-config/k8s_hx_deploy.yml
+    - kubectl apply -f k8s-deploy-config/k8s_hx_deploy.yml
+    - kubectl rollout restart deployment/psi-mi-validator-deployment
+    - kubectl get nodes
+
+hh-prod-deploy:
+  extends: [ .kubernetes-deploy ]
+  needs: [ maven-build-hh, docker-build-hh ]
+  script:
+    - kubectl config get-contexts
+    - kubectl config use-context hh-intact-prod
+    - kubectl create secret docker-registry gitlab-registry --docker-server=$CI_REGISTRY --docker-username=$CI_REGISTRY_USER --docker-password=$CI_REGISTRY_PASSWORD --docker-email=$GITLAB_USER_EMAIL --dry-run=client -o yaml | kubectl apply -f -
+    - kubectl get secrets gitlab-registry -o yaml
+    - echo ${CONTAINER_IMAGE}
+    - sed -i -e "s|<CONTAINER_IMAGE>|$CONTAINER_IMAGE|g" k8s-deploy-config/k8s_hh_deploy.yml
+    - kubectl apply -f k8s-deploy-config/k8s_hh_deploy.yml
+    - kubectl rollout restart deployment/psi-mi-validator-deployment
+    - kubectl get nodes

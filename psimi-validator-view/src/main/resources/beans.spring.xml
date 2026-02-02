@@ -14,7 +14,7 @@
     <bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>
 
     <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-        <property name="host" value="smtp.ebi.ac.uk"/>
+        <property name="host" value="${mail.server.host}"/>
         <property name="port" value="25"/>
         <property name="username" value="default.user@gmail.com"/>
         <property name="javaMailProperties">

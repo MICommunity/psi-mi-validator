@@ -23,8 +23,7 @@
     </properties>
 
     <build>
-
-        <finalName>${project.artifactId}-v${project.version}</finalName>
+        <finalName>${finalName}</finalName>
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
