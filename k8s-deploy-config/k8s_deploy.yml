@@ -42,7 +42,7 @@ spec:
       containers:
         - name: psi-mi-validator
           # Pull the image which contains psi-mi-validator webservice and the built assets from EBI's dockerhub
-          image: <CONTAINER_IMAGE>
+          image: <IMAGE_TAG>
           ports:
             # We are using psi-mi-validator webservice config which serves on port 8080
             - containerPort: 8080
@@ -58,11 +58,11 @@ spec:
             periodSeconds: 20
           env:
             - name: http_proxy
-              value: "http://hh-wwwcache.ebi.ac.uk:3128"
+              value: "http://<PROXY_HOST>:3128"
             - name: https_proxy
-              value: "http://hh-wwwcache.ebi.ac.uk:3128"
+              value: "http://<PROXY_HOST>:3128"
             - name: JAVA_OPTS
-              value: "-Dhttp.proxyHost=hh-wwwcache.ebi.ac.uk -Dhttp.proxyPort=3128 -Dhttps.proxyHost=hh-wwwcache.ebi.ac.uk -Dhttps.proxyPort=3128"
+              value: "-Dhttp.proxyHost=<PROXY_HOST> -Dhttp.proxyPort=3128 -Dhttps.proxyHost=<PROXY_HOST> -Dhttps.proxyPort=3128"
       imagePullSecrets:
         # Provided by GitLab, this allows K8s to connect to dockerhub.ebi.ac.uk
         - name: gitlab-registry

@@ -11,9 +11,11 @@ stages:
 .maven-build:
   image: maven:3.6-jdk-11
   stage: build-jar
-  before_script:
-    - mvn compile install
-  after_script:
+  script:
+    - mvn package -B -s settings.xml -P $MAVEN_PROFILES
+    - POM_VERSION=$(mvn -Dexec.executable='echo' -Dexec.args='${project.version}' --non-recursive exec:exec -q)
+    - echo ${POM_VERSION}-${PROFILE_SUFFIX}-${CI_COMMIT_SHORT_SHA}
+    - echo "IMAGE_TAG=${POM_VERSION}-${PROFILE_SUFFIX}-${CI_COMMIT_SHORT_SHA}" > build.env
     - mkdir /builds/intact-ci/psi-mi-validator/target/
     - cp /builds/intact-ci/psi-mi-validator/psimi-validator-view/target/psimi-validator-view.war /builds/intact-ci/psi-mi-validator/target/
     - sed -i -e "s|<TOMCAT_MANAGER_PASSWORD>|$TOMCAT_MANAGER_PASSWORD|g" config/tomcat-users.xml
@@ -26,18 +28,16 @@ stages:
   when: manual
 
 maven-build-hh:
-  extends: [ .maven-build ]
-  script:
-    - mvn package -B -s settings.xml -P validator,validator-k8s-hh -Dmaven.test.skip=true
-    - POM_VERSION=$(mvn -Dexec.executable='echo' -Dexec.args='${project.version}' --non-recursive exec:exec -q)
-    - echo "CONTAINER_IMAGE=${CI_REGISTRY_IMAGE}:${POM_VERSION}-hh" > build.env
+  extends: .maven-build
+  variables:
+    MAVEN_PROFILES: "validator,validator-k8s-hh"
+    PROFILE_SUFFIX: "hh"
 
 maven-build-hx:
-  extends: [ .maven-build ]
-  script:
-    - mvn package -B -s settings.xml -P validator,validator-k8s-hx -Dmaven.test.skip=true
-    - POM_VERSION=$(mvn -Dexec.executable='echo' -Dexec.args='${project.version}' --non-recursive exec:exec -q)
-    - echo "CONTAINER_IMAGE=${CI_REGISTRY_IMAGE}:${POM_VERSION}-hx" > build.env
+  extends: .maven-build
+  variables:
+    MAVEN_PROFILES: "validator,validator-k8s-hh"
+    PROFILE_SUFFIX: "hh"
 
 .docker-build:
   stage: build-docker-image
@@ -47,22 +47,22 @@ maven-build-hx:
     - docker system prune -af
   script:
     - echo "$CI_DOCKER_HUB_PASSWORD" | docker login -u $CI_DOCKER_HUB_USER --password-stdin
-    - echo ${CONTAINER_IMAGE}
-    - docker build -t ${CONTAINER_IMAGE} --no-cache .
+    - echo ${IMAGE_TAG}
+    - docker build -t ${IMAGE_TAG} --no-cache .
     - docker image ls
     - docker logout
     - echo "$CI_REGISTRY_PASSWORD" | docker login -u $CI_REGISTRY_USER $CI_REGISTRY --password-stdin
-    - docker push ${CONTAINER_IMAGE}
-    - docker rmi ${CONTAINER_IMAGE}
+    - docker push ${IMAGE_TAG}
+    - docker rmi ${IMAGE_TAG}
     - docker logout "$CI_REGISTRY"
 
 docker-build-hh:
-  extends: [ .docker-build ]
-  needs: [ maven-build-hh ]
+  extends: .docker-build
+  needs: maven-build-hh
 
 docker-build-hx:
-  extends: [ .docker-build ]
-  needs: [ maven-build-hx ]
+  extends: .docker-build
+  needs: maven-build-hx
 
 .kubernetes-deploy:
   stage: kubernetes-deploy
@@ -75,46 +75,36 @@ docker-build-hx:
     - git clone https://k8s-config-token:${K8S_CONFIG_TOKEN}@gitlab.ebi.ac.uk/intact-ci/k8s-config
     - mkdir ~/.kube
     - cp k8s-config/config ~/.kube/
+  script:
+    - kubectl config get-contexts
+    - kubectl config use-context $KUBE_CONTEXT
+    - kubectl create secret docker-registry gitlab-registry --docker-server=$CI_REGISTRY --docker-username=$CI_REGISTRY_USER --docker-password=$CI_JOB_TOKEN --docker-email=$GITLAB_USER_EMAIL --dry-run=client -o yaml | kubectl apply -f -
+    - kubectl get secrets gitlab-registry -o yaml
+    - echo ${IMAGE_TAG}
+    - sed -i -e "s|<IMAGE_TAG>|$IMAGE_TAG|g" k8s-deploy-config/k8s_deploy.yml
+    - sed -i -e "s|<PROXY_HOST>|$PROXY_HOST|g" k8s-deploy-config/k8s_deploy.yml
+    - kubectl apply -f k8s-deploy-config/k8s_deploy.yml
+    - kubectl rollout restart deployment/psi-mi-validator-deployment
+    - kubectl get nodes
   when: manual
 
 hh-test-deploy:
-  extends: [ .kubernetes-deploy ]
+  extends: .kubernetes-deploy
   needs: [ maven-build-hh, docker-build-hh ]
-  script:
-    - kubectl config get-contexts
-    - kubectl config use-context hh-intact-test
-    - kubectl create secret docker-registry gitlab-registry --docker-server=$CI_REGISTRY --docker-username=$CI_REGISTRY_USER --docker-password=$CI_JOB_TOKEN --docker-email=$GITLAB_USER_EMAIL --dry-run=client -o yaml | kubectl apply -f -
-    - kubectl get secrets gitlab-registry -o yaml
-    - echo ${CONTAINER_IMAGE}
-    - sed -i -e "s|<CONTAINER_IMAGE>|$CONTAINER_IMAGE|g" k8s-deploy-config/k8s_hh_deploy.yml
-    - kubectl apply -f k8s-deploy-config/k8s_hh_deploy.yml
-    - kubectl rollout restart deployment/psi-mi-validator-deployment
-    - kubectl get nodes
+  variables:
+    PROXY_HOST: hh-wwwcache.ebi.ac.uk
+    KUBE_CONTEXT: hh-intact-test
 
 hx-prod-deploy:
-  extends: [ .kubernetes-deploy ]
+  extends: .kubernetes-deploy
   needs: [ maven-build-hx, docker-build-hx ]
-  script:
-    - kubectl config get-contexts
-    - kubectl config use-context hx-intact-prod
-    - kubectl create secret docker-registry gitlab-registry --docker-server=$CI_REGISTRY --docker-username=$CI_REGISTRY_USER --docker-password=$CI_JOB_TOKEN --docker-email=$GITLAB_USER_EMAIL --dry-run=client -o yaml | kubectl apply -f -
-    - kubectl get secrets gitlab-registry -o yaml
-    - echo ${CONTAINER_IMAGE}
-    - sed -i -e "s|<CONTAINER_IMAGE>|$CONTAINER_IMAGE|g" k8s-deploy-config/k8s_hx_deploy.yml
-    - kubectl apply -f k8s-deploy-config/k8s_hx_deploy.yml
-    - kubectl rollout restart deployment/psi-mi-validator-deployment
-    - kubectl get nodes
+  variables:
+    PROXY_HOST: hx-wwwcache.ebi.ac.uk
+    KUBE_CONTEXT: hx-intact-prod
 
 hh-prod-deploy:
-  extends: [ .kubernetes-deploy ]
+  extends: .kubernetes-deploy
   needs: [ maven-build-hh, docker-build-hh ]
-  script:
-    - kubectl config get-contexts
-    - kubectl config use-context hh-intact-prod
-    - kubectl create secret docker-registry gitlab-registry --docker-server=$CI_REGISTRY --docker-username=$CI_REGISTRY_USER --docker-password=$CI_JOB_TOKEN --docker-email=$GITLAB_USER_EMAIL --dry-run=client -o yaml | kubectl apply -f -
-    - kubectl get secrets gitlab-registry -o yaml
-    - echo ${CONTAINER_IMAGE}
-    - sed -i -e "s|<CONTAINER_IMAGE>|$CONTAINER_IMAGE|g" k8s-deploy-config/k8s_hh_deploy.yml
-    - kubectl apply -f k8s-deploy-config/k8s_hh_deploy.yml
-    - kubectl rollout restart deployment/psi-mi-validator-deployment
-    - kubectl get nodes
+  variables:
+    PROXY_HOST: hh-wwwcache.ebi.ac.uk
+    KUBE_CONTEXT: hh-intact-prod
