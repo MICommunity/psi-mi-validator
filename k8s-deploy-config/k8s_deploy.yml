@@ -63,6 +63,25 @@ spec:
               value: "http://<PROXY_HOST>:3128"
             - name: JAVA_OPTS
               value: "-Dhttp.proxyHost=<PROXY_HOST> -Dhttp.proxyPort=3128 -Dhttps.proxyHost=<PROXY_HOST> -Dhttps.proxyPort=3128"
+          lifecycle:
+            postStart:
+              exec:
+                command:
+                  - "/bin/sh"
+                  - "-c"
+                  - "if [ ! -d /usr/local/tomcat/conf/tomcat-users.xml ] ; then cp /tmp/tomcat-users.xml /usr/local/tomcat/conf/tomcat-users.xml ; fi ; \
+                     if [ ! -d /usr/local/tomcat/webapps/manager/META-INF/context.xml ] ; then cp /tmp/manager-context.xml /usr/local/tomcat/webapps/manager/META-INF/context.xml ; fi ;"
+          volumeMounts:
+          - name: tomcat-config
+            mountPath: /tmp/tomcat-users.xml
+            subPath: tomcat-users.xml
+          - name: tomcat-config
+            mountPath: /tmp/manager-context.xml
+            subPath: manager-context.xml
+      volumes:
+        - name: tomcat-config
+          configMap:
+            name: tomcat-config
       imagePullSecrets:
         # Provided by GitLab, this allows K8s to connect to dockerhub.ebi.ac.uk
         - name: gitlab-registry

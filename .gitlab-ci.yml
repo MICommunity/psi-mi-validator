@@ -18,7 +18,6 @@ stages:
     - echo "IMAGE_TAG=${POM_VERSION}-${PROFILE_SUFFIX}-${CI_COMMIT_SHORT_SHA}" > build.env
     - mkdir /builds/intact-ci/psi-mi-validator/target/
     - cp /builds/intact-ci/psi-mi-validator/psimi-validator-view/target/psimi-validator-view.war /builds/intact-ci/psi-mi-validator/target/
-    - sed -i -e "s|<TOMCAT_MANAGER_PASSWORD>|$TOMCAT_MANAGER_PASSWORD|g" config/tomcat-users.xml
   artifacts:
     paths:
       - target/*.war
