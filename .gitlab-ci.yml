@@ -91,6 +91,10 @@ hh-test-deploy:
   variables:
     PROXY_HOST: hh-wwwcache.ebi.ac.uk
     KUBE_CONTEXT: hh-intact-test
+  environment:
+    name: hh/test
+    deployment_tier: testing
+    url: http://hh-rke-wp-webadmin-99-master-1.caas.ebi.ac.uk:31235/intact/validator/start.xhtml
 
 hx-prod-deploy:
   extends: .kubernetes-deploy
@@ -98,6 +102,10 @@ hx-prod-deploy:
   variables:
     PROXY_HOST: hx-wwwcache.ebi.ac.uk
     KUBE_CONTEXT: hx-intact-prod
+  environment:
+    name: hx/prod
+    deployment_tier: production
+    url: http://hx-rke-wp-webadmin-78-master-1.caas.ebi.ac.uk:31235/intact/validator/start.xhtml
 
 hh-prod-deploy:
   extends: .kubernetes-deploy
@@ -105,3 +113,7 @@ hh-prod-deploy:
   variables:
     PROXY_HOST: hh-wwwcache.ebi.ac.uk
     KUBE_CONTEXT: hh-intact-prod
+  environment:
+    name: hh/prod
+    deployment_tier: production
+    url: http://hh-rke-wp-webadmin-102-master-1.caas.ebi.ac.uk:31235/intact/validator/start.xhtml
