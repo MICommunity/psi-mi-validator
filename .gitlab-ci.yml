@@ -57,11 +57,11 @@ maven-build-hx:
 
 docker-build-hh:
   extends: .docker-build
-  needs: maven-build-hh
+  needs: [ maven-build-hh ]
 
 docker-build-hx:
   extends: .docker-build
-  needs: maven-build-hx
+  needs: [ maven-build-hx ]
 
 .kubernetes-deploy:
   stage: kubernetes-deploy
