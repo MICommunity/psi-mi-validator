@@ -19,6 +19,7 @@
         <psimod.obo.url>https://raw.githubusercontent.com/HUPO-PSI/psi-mod-CV/master/PSI-MOD.obo</psimod.obo.url>
         <psipar.obo.url>https://raw.githubusercontent.com/MICommunity/psidev/master/psi/mi/controlledVocab/proteomeBinder/psi-par.obo</psipar.obo.url>
 
+        <mail.server.host>smtp.ebi.ac.uk</mail.server.host>
         <notification.emails>intact-dev@ebi.ac.uk</notification.emails>
     </properties>
 
