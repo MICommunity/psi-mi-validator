@@ -83,11 +83,8 @@ public class ValidatorWebContext {
             this.validatorWebContent = new ValidatorWebContent();
         } catch (ValidatorWebContextException e) {
             e.printStackTrace();
-
             String body = "The validator web content has not been properly initialized." + ExceptionUtils.getFullStackTrace(e);
-
             sendEmail("Problem initializing the validator web content", body);
-
         }
     }
 
