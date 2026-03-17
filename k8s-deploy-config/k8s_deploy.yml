@@ -10,11 +10,12 @@ spec:
       protocol: TCP
       # The port on your Deployment which it will expose
       targetPort: 8080
+      nodePort: 31235
   selector:
     # Selects the disease-portal-client Deployment to attach the Service to
     app: psi-mi-validator
     # Tell K8s this wants to expose an external port
-  type: ClusterIP
+  type: NodePort
 ---
 apiVersion: apps/v1
 kind: Deployment
