@@ -83,3 +83,19 @@ spec:
       imagePullSecrets:
         # Provided by GitLab, this allows K8s to connect to dockerhub.ebi.ac.uk
         - name: gitlab-registry
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: psi-mi-validator-ingress
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /intact/validator
+        pathType: Prefix
+        backend:
+          service:
+            name: psi-mi-validator-service
+            port:
+              number: 31235
