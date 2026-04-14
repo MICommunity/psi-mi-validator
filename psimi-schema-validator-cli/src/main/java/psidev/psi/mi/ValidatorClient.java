@@ -15,6 +15,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Enumeration;
+import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
@@ -301,7 +302,8 @@ public class ValidatorClient {
         if (indexExtension != -1){
             if (validatorReport.hasSyntaxMessages() || validatorReport.hasSemanticMessages()){
 
-                Collection<ValidatorMessage> totalMessages = validatorReport.getSemanticMessages();
+                List<ValidatorMessage> totalMessages = new ArrayList<>();
+                totalMessages.addAll(validatorReport.getSemanticMessages());
                 totalMessages.addAll(validatorReport.getSyntaxMessages());
 
                 MessageLevel extension = getHigherMessageLevelFrom(totalMessages);

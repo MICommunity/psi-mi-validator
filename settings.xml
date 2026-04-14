@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+
+    <profiles>
+        <profile>
+            <id>validator</id>
+            <properties>
+                <psimi.obo.url>file:/config/psi-mi.obo</psimi.obo.url>
+                <psimod.obo.url>file:/config/PSI-MOD.obo</psimod.obo.url>
+                <psipar.obo.url>file:/config/psi-par.obo</psipar.obo.url>
+                <notification.emails>intact-dev@ebi.ac.uk</notification.emails>
+            </properties>
+        </profile>
+        <profile>
+            <id>validator-k8s-hh</id>
+            <properties>
+                <mail.server.host>hh-smtp.ebi.ac.uk</mail.server.host>
+            </properties>
+        </profile>
+        <profile>
+            <id>validator-k8s-hx</id>
+            <properties>
+                <mail.server.host>hx-smtp.ebi.ac.uk</mail.server.host>
+            </properties>
+        </profile>
+    </profiles>
+</settings>
