@@ -82,7 +82,8 @@ docker-build-hx:
     - sed -i -e "s|<PROXY_HOST>|$PROXY_HOST|g" k8s-deploy-config/k8s_deploy.yml
     - kubectl apply -f k8s-deploy-config/k8s_deploy.yml
     - kubectl rollout restart deployment/psi-mi-validator-deployment
-    - kubectl get nodes
+    - kubectl rollout status deployment/psi-mi-validator-deployment --timeout=180s # Wait for rollout to complete
+    - kubectl get pods
   when: manual
 
 hh-test-deploy:
@@ -94,7 +95,7 @@ hh-test-deploy:
   environment:
     name: hh/test
     deployment_tier: testing
-    url: http://hh-rke-wp-webadmin-99-master-1.caas.ebi.ac.uk:31903/intact/validator/start.xhtml
+    url: http://hh-rke-wp-webadmin-99-master-1.caas.ebi.ac.uk:31736/intact/validator/start.xhtml
 
 hx-prod-deploy:
   extends: .kubernetes-deploy
