@@ -41,7 +41,6 @@ maven-build-hx:
   before_script:
     - unset DOCKER_HOST
     - unset DOCKER_AUTH_CONFIG
-    - docker system prune -af
   script:
     - echo "$CI_DOCKER_HUB_PASSWORD" | docker login -u $CI_DOCKER_HUB_USER --password-stdin
     - echo "$CI_REGISTRY_IMAGE:$IMAGE_TAG"
