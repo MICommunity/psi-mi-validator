@@ -44,6 +44,12 @@ spec:
           ports:
             # We are using psi-mi-validator webservice config which serves on port 8080
             - containerPort: 8080
+          resources:
+            requests:
+              cpu: 100m
+              memory: 2Gi
+            limits:
+              memory: 3Gi
           readinessProbe:
             tcpSocket:
               port: 8080
