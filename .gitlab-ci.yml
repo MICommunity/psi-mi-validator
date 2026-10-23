@@ -23,6 +23,12 @@ stages:
     reports:
       dotenv: build.env
   when: manual
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH'
+      when: on_success
+      allow_failure: false
+    - when: manual
+      allow_failure: true
 
 maven-build-hh:
   extends: .maven-build
@@ -82,10 +88,20 @@ docker-build-hx:
     - kubectl rollout status deployment/psi-mi-validator-deployment --timeout=180s # Wait for rollout to complete
     - kubectl get pods
   when: manual
+  allow_failure: true
 
 hh-test-deploy:
   extends: .kubernetes-deploy
   needs: [ maven-build-hh, docker-build-hh ]
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH && $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+      when: on_success
+      allow_failure: false
+    - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH'
+      when: manual
+      allow_failure: true
+    - when: manual
+      allow_failure: true
   variables:
     PROXY_HOST: hh-wwwcache.ebi.ac.uk
     KUBE_CONTEXT: hh-intact-test
