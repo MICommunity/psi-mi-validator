@@ -1,3 +1,10 @@
+workflow:
+  auto_cancel:
+    on_new_commit: conservative
+
+default:
+  interruptible: true
+
 image: docker:latest
 services:
   - docker:stable-dind
@@ -66,6 +73,8 @@ docker-build-hx:
   needs: [ maven-build-hx ]
 
 .kubernetes-deploy:
+  interruptible: false
+  resource_group: "$CI_ENVIRONMENT_NAME"
   stage: kubernetes-deploy
   rules:
     - when: manual
