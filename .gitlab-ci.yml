@@ -22,7 +22,6 @@ stages:
       - target/*.war
     reports:
       dotenv: build.env
-  when: manual
   rules:
     - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH'
       when: on_success
@@ -68,6 +67,9 @@ docker-build-hx:
 
 .kubernetes-deploy:
   stage: kubernetes-deploy
+  rules:
+    - when: manual
+      allow_failure: true
   image: alpine
   before_script:
     - apk add --no-cache curl git
@@ -87,8 +89,6 @@ docker-build-hx:
     - kubectl apply -f k8s-deploy-config/k8s_deploy.yml
     - kubectl rollout status deployment/psi-mi-validator-deployment --timeout=180s # Wait for rollout to complete
     - kubectl get pods
-  when: manual
-  allow_failure: true
 
 hh-test-deploy:
   extends: .kubernetes-deploy
@@ -97,9 +97,6 @@ hh-test-deploy:
     - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH && $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
       when: on_success
       allow_failure: false
-    - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH'
-      when: manual
-      allow_failure: true
     - when: manual
       allow_failure: true
   variables:
